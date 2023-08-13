@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ExpenseView: View {
-
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
         // CoreData
     @Environment(\.managedObjectContext) var managedObjectContext
