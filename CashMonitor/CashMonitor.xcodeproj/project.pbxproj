@@ -16,6 +16,27 @@
 		EB07FC302A87F84400D1537A /* CashMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC2F2A87F84400D1537A /* CashMonitorTests.swift */; };
 		EB07FC3A2A87F84400D1537A /* CashMonitorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC392A87F84400D1537A /* CashMonitorUITests.swift */; };
 		EB07FC3C2A87F84400D1537A /* CashMonitorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC3B2A87F84400D1537A /* CashMonitorUITestsLaunchTests.swift */; };
+		EB07FC4A2A8806FC00D1537A /* CashMonitorDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC492A8806FC00D1537A /* CashMonitorDB.swift */; };
+		EB07FC4D2A880A2B00D1537A /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC4C2A880A2B00D1537A /* DateExtension.swift */; };
+		EB07FC4F2A88E7AC00D1537A /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC4E2A88E7AC00D1537A /* Config.swift */; };
+		EB07FC512A88E83B00D1537A /* AttachmentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC502A88E83B00D1537A /* AttachmentHandler.swift */; };
+		EB07FC542A88E9CE00D1537A /* AddExpenseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC532A88E9CE00D1537A /* AddExpenseViewModel.swift */; };
+		EB07FC552A88E9CE00D1537A /* AddExpenseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC532A88E9CE00D1537A /* AddExpenseViewModel.swift */; };
+		EB07FC572A88EB4A00D1537A /* DropdownOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC562A88EB4A00D1537A /* DropdownOption.swift */; };
+		EB07FC582A88EB4A00D1537A /* DropdownOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC562A88EB4A00D1537A /* DropdownOption.swift */; };
+		EB07FC5A2A88EC1F00D1537A /* ToolbarModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC592A88EC1F00D1537A /* ToolbarModelView.swift */; };
+		EB07FC5B2A88EC1F00D1537A /* ToolbarModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC592A88EC1F00D1537A /* ToolbarModelView.swift */; };
+		EB07FC5D2A88EC5400D1537A /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC5C2A88EC5400D1537A /* TextView.swift */; };
+		EB07FC5E2A88EC5400D1537A /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC5C2A88EC5400D1537A /* TextView.swift */; };
+		EB07FC602A88EC9800D1537A /* InterFontModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC5F2A88EC9800D1537A /* InterFontModifier.swift */; };
+		EB07FC612A88EC9800D1537A /* InterFontModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC5F2A88EC9800D1537A /* InterFontModifier.swift */; };
+		EB07FC632A88ECF000D1537A /* AddExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC622A88ECF000D1537A /* AddExpenseView.swift */; };
+		EB07FC642A88ECF000D1537A /* AddExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC622A88ECF000D1537A /* AddExpenseView.swift */; };
+		EB07FC662A88ED6B00D1537A /* DismissKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC652A88ED6B00D1537A /* DismissKeyboard.swift */; };
+		EB07FC682A88EDC500D1537A /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC672A88EDC500D1537A /* ColorExtension.swift */; };
+		EB07FC6B2A88F00C00D1537A /* ExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC6A2A88F00C00D1537A /* ExpenseView.swift */; };
+		EB07FC732A88F48F00D1537A /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = EB07FC722A88F48F00D1537A /* Lottie */; };
+		EB07FC752A88F4CF00D1537A /*  LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC742A88F4CF00D1537A /*  LottieView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +69,20 @@
 		EB07FC352A87F84400D1537A /* CashMonitorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CashMonitorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB07FC392A87F84400D1537A /* CashMonitorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashMonitorUITests.swift; sourceTree = "<group>"; };
 		EB07FC3B2A87F84400D1537A /* CashMonitorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashMonitorUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		EB07FC492A8806FC00D1537A /* CashMonitorDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashMonitorDB.swift; sourceTree = "<group>"; };
+		EB07FC4C2A880A2B00D1537A /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		EB07FC4E2A88E7AC00D1537A /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		EB07FC502A88E83B00D1537A /* AttachmentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentHandler.swift; sourceTree = "<group>"; };
+		EB07FC532A88E9CE00D1537A /* AddExpenseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseViewModel.swift; sourceTree = "<group>"; };
+		EB07FC562A88EB4A00D1537A /* DropdownOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownOption.swift; sourceTree = "<group>"; };
+		EB07FC592A88EC1F00D1537A /* ToolbarModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarModelView.swift; sourceTree = "<group>"; };
+		EB07FC5C2A88EC5400D1537A /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		EB07FC5F2A88EC9800D1537A /* InterFontModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterFontModifier.swift; sourceTree = "<group>"; };
+		EB07FC622A88ECF000D1537A /* AddExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseView.swift; sourceTree = "<group>"; };
+		EB07FC652A88ED6B00D1537A /* DismissKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissKeyboard.swift; sourceTree = "<group>"; };
+		EB07FC672A88EDC500D1537A /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		EB07FC6A2A88F00C00D1537A /* ExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseView.swift; sourceTree = "<group>"; };
+		EB07FC742A88F4CF00D1537A /*  LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " LottieView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB07FC732A88F48F00D1537A /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,12 +134,17 @@
 		EB07FC182A87F84300D1537A /* CashMonitor */ = {
 			isa = PBXGroup;
 			children = (
+				EB07FC692A88EFEC00D1537A /* Expense */,
+				EB07FC522A88E96700D1537A /* AddExpense */,
+				EB07FC4B2A880A0C00D1537A /* Helpers */,
+				EB07FC482A88067E00D1537A /* CoreData */,
 				EB07FC192A87F84300D1537A /* CashMonitorApp.swift */,
 				EB07FC1B2A87F84300D1537A /* ContentView.swift */,
 				EB07FC1D2A87F84400D1537A /* Assets.xcassets */,
-				EB07FC222A87F84400D1537A /* Persistence.swift */,
 				EB07FC242A87F84400D1537A /* CashMonitor.xcdatamodeld */,
+				EB07FC222A87F84400D1537A /* Persistence.swift */,
 				EB07FC1F2A87F84400D1537A /* Preview Content */,
+				EB07FC4E2A88E7AC00D1537A /* Config.swift */,
 			);
 			path = CashMonitor;
 			sourceTree = "<group>";
@@ -133,6 +174,47 @@
 			path = CashMonitorUITests;
 			sourceTree = "<group>";
 		};
+		EB07FC482A88067E00D1537A /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				EB07FC492A8806FC00D1537A /* CashMonitorDB.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		EB07FC4B2A880A0C00D1537A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				EB07FC4C2A880A2B00D1537A /* DateExtension.swift */,
+				EB07FC502A88E83B00D1537A /* AttachmentHandler.swift */,
+				EB07FC562A88EB4A00D1537A /* DropdownOption.swift */,
+				EB07FC592A88EC1F00D1537A /* ToolbarModelView.swift */,
+				EB07FC5C2A88EC5400D1537A /* TextView.swift */,
+				EB07FC5F2A88EC9800D1537A /* InterFontModifier.swift */,
+				EB07FC652A88ED6B00D1537A /* DismissKeyboard.swift */,
+				EB07FC672A88EDC500D1537A /* ColorExtension.swift */,
+				EB07FC742A88F4CF00D1537A /*  LottieView.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		EB07FC522A88E96700D1537A /* AddExpense */ = {
+			isa = PBXGroup;
+			children = (
+				EB07FC532A88E9CE00D1537A /* AddExpenseViewModel.swift */,
+				EB07FC622A88ECF000D1537A /* AddExpenseView.swift */,
+			);
+			path = AddExpense;
+			sourceTree = "<group>";
+		};
+		EB07FC692A88EFEC00D1537A /* Expense */ = {
+			isa = PBXGroup;
+			children = (
+				EB07FC6A2A88F00C00D1537A /* ExpenseView.swift */,
+			);
+			path = Expense;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -149,6 +231,9 @@
 			dependencies = (
 			);
 			name = CashMonitor;
+			packageProductDependencies = (
+				EB07FC722A88F48F00D1537A /* Lottie */,
+			);
 			productName = CashMonitor;
 			productReference = EB07FC162A87F84300D1537A /* CashMonitor.app */;
 			productType = "com.apple.product-type.application";
@@ -221,6 +306,9 @@
 				Base,
 			);
 			mainGroup = EB07FC0D2A87F84300D1537A;
+			packageReferences = (
+				EB07FC712A88F48F00D1537A /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			productRefGroup = EB07FC172A87F84300D1537A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -264,9 +352,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB07FC232A87F84400D1537A /* Persistence.swift in Sources */,
+				EB07FC512A88E83B00D1537A /* AttachmentHandler.swift in Sources */,
+				EB07FC752A88F4CF00D1537A /*  LottieView.swift in Sources */,
+				EB07FC602A88EC9800D1537A /* InterFontModifier.swift in Sources */,
+				EB07FC542A88E9CE00D1537A /* AddExpenseViewModel.swift in Sources */,
+				EB07FC4D2A880A2B00D1537A /* DateExtension.swift in Sources */,
+				EB07FC5A2A88EC1F00D1537A /* ToolbarModelView.swift in Sources */,
 				EB07FC1C2A87F84300D1537A /* ContentView.swift in Sources */,
+				EB07FC4F2A88E7AC00D1537A /* Config.swift in Sources */,
+				EB07FC4A2A8806FC00D1537A /* CashMonitorDB.swift in Sources */,
 				EB07FC1A2A87F84300D1537A /* CashMonitorApp.swift in Sources */,
+				EB07FC6B2A88F00C00D1537A /* ExpenseView.swift in Sources */,
+				EB07FC5D2A88EC5400D1537A /* TextView.swift in Sources */,
+				EB07FC682A88EDC500D1537A /* ColorExtension.swift in Sources */,
+				EB07FC632A88ECF000D1537A /* AddExpenseView.swift in Sources */,
 				EB07FC262A87F84400D1537A /* CashMonitor.xcdatamodeld in Sources */,
+				EB07FC572A88EB4A00D1537A /* DropdownOption.swift in Sources */,
+				EB07FC662A88ED6B00D1537A /* DismissKeyboard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,7 +376,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB07FC612A88EC9800D1537A /* InterFontModifier.swift in Sources */,
+				EB07FC5B2A88EC1F00D1537A /* ToolbarModelView.swift in Sources */,
 				EB07FC302A87F84400D1537A /* CashMonitorTests.swift in Sources */,
+				EB07FC582A88EB4A00D1537A /* DropdownOption.swift in Sources */,
+				EB07FC642A88ECF000D1537A /* AddExpenseView.swift in Sources */,
+				EB07FC552A88E9CE00D1537A /* AddExpenseViewModel.swift in Sources */,
+				EB07FC5E2A88EC5400D1537A /* TextView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,6 +699,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EB07FC712A88F48F00D1537A /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EB07FC722A88F48F00D1537A /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EB07FC712A88F48F00D1537A /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		EB07FC242A87F84400D1537A /* CashMonitor.xcdatamodeld */ = {
