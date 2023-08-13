@@ -39,6 +39,9 @@
 		EB07FC752A88F4CF00D1537A /*  LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC742A88F4CF00D1537A /*  LottieView.swift */; };
 		EB07FC782A890FE300D1537A /* ExpenseDetailedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC772A890FE300D1537A /* ExpenseDetailedListView.swift */; };
 		EB07FC7A2A89103200D1537A /* ExpenseDetailedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC792A89103200D1537A /* ExpenseDetailedViewModel.swift */; };
+		EB07FC7D2A89134F00D1537A /* ExpenseFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC7C2A89134F00D1537A /* ExpenseFilterView.swift */; };
+		EB07FC842A8914EE00D1537A /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC832A8914EE00D1537A /* ChartView.swift */; };
+		EB07FC872A8916EF00D1537A /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = EB07FC862A8916EF00D1537A /* DGCharts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +90,8 @@
 		EB07FC742A88F4CF00D1537A /*  LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " LottieView.swift"; sourceTree = "<group>"; };
 		EB07FC772A890FE300D1537A /* ExpenseDetailedListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailedListView.swift; sourceTree = "<group>"; };
 		EB07FC792A89103200D1537A /* ExpenseDetailedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailedViewModel.swift; sourceTree = "<group>"; };
+		EB07FC7C2A89134F00D1537A /* ExpenseFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseFilterView.swift; sourceTree = "<group>"; };
+		EB07FC832A8914EE00D1537A /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB07FC872A8916EF00D1537A /* DGCharts in Frameworks */,
 				EB07FC732A88F48F00D1537A /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,6 +144,7 @@
 		EB07FC182A87F84300D1537A /* CashMonitor */ = {
 			isa = PBXGroup;
 			children = (
+				EB07FC7B2A89132C00D1537A /* ExpenseFilter */,
 				EB07FC762A890FBD00D1537A /* ExpenseDetails */,
 				EB07FC692A88EFEC00D1537A /* Expense */,
 				EB07FC522A88E96700D1537A /* AddExpense */,
@@ -199,6 +206,7 @@
 				EB07FC652A88ED6B00D1537A /* DismissKeyboard.swift */,
 				EB07FC672A88EDC500D1537A /* ColorExtension.swift */,
 				EB07FC742A88F4CF00D1537A /*  LottieView.swift */,
+				EB07FC832A8914EE00D1537A /* ChartView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -229,6 +237,14 @@
 			path = ExpenseDetails;
 			sourceTree = "<group>";
 		};
+		EB07FC7B2A89132C00D1537A /* ExpenseFilter */ = {
+			isa = PBXGroup;
+			children = (
+				EB07FC7C2A89134F00D1537A /* ExpenseFilterView.swift */,
+			);
+			path = ExpenseFilter;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -247,6 +263,7 @@
 			name = CashMonitor;
 			packageProductDependencies = (
 				EB07FC722A88F48F00D1537A /* Lottie */,
+				EB07FC862A8916EF00D1537A /* DGCharts */,
 			);
 			productName = CashMonitor;
 			productReference = EB07FC162A87F84300D1537A /* CashMonitor.app */;
@@ -322,6 +339,7 @@
 			mainGroup = EB07FC0D2A87F84300D1537A;
 			packageReferences = (
 				EB07FC712A88F48F00D1537A /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				EB07FC852A8916EF00D1537A /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			productRefGroup = EB07FC172A87F84300D1537A /* Products */;
 			projectDirPath = "";
@@ -371,6 +389,8 @@
 				EB07FC752A88F4CF00D1537A /*  LottieView.swift in Sources */,
 				EB07FC782A890FE300D1537A /* ExpenseDetailedListView.swift in Sources */,
 				EB07FC602A88EC9800D1537A /* InterFontModifier.swift in Sources */,
+				EB07FC7D2A89134F00D1537A /* ExpenseFilterView.swift in Sources */,
+				EB07FC842A8914EE00D1537A /* ChartView.swift in Sources */,
 				EB07FC542A88E9CE00D1537A /* AddExpenseViewModel.swift in Sources */,
 				EB07FC4D2A880A2B00D1537A /* DateExtension.swift in Sources */,
 				EB07FC5A2A88EC1F00D1537A /* ToolbarModelView.swift in Sources */,
@@ -552,6 +572,8 @@
 				DEVELOPMENT_TEAM = R85N7Z4DTZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Allow the CashMonitor App to use your camera.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow the CashMonitor App to access your photo library.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -581,6 +603,8 @@
 				DEVELOPMENT_TEAM = R85N7Z4DTZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Allow the CashMonitor App to use your camera.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow the CashMonitor App to access your photo library.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -725,6 +749,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		EB07FC852A8916EF00D1537A /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -732,6 +764,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EB07FC712A88F48F00D1537A /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		EB07FC862A8916EF00D1537A /* DGCharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EB07FC852A8916EF00D1537A /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = DGCharts;
 		};
 /* End XCSwiftPackageProductDependency section */
 

@@ -117,12 +117,12 @@ struct ExpenseMainView: View {
                     TextView(text: "\(CURRENCY)\(getTotalBalance())", type: .h5).foregroundColor(Color.text_primary_color).padding(.bottom, 30)
                 }.frame(maxWidth: .infinity).background(Color.secondary_color).cornerRadius(4)
 
-//                HStack(spacing: 8) {
-//                    NavigationLink(destination: NavigationLazyView(ExpenseFilterView(isIncome: true)),
-//                                   label: { ExpenseModelView(isIncome: true, filter: filter) })
-//                    NavigationLink(destination: NavigationLazyView(ExpenseFilterView(isIncome: false)),
-//                                   label: { ExpenseModelView(isIncome: false, filter: filter) })
-//                }.frame(maxWidth: .infinity)
+                HStack(spacing: 8) {
+                    NavigationLink(destination: NavigationLazyView(ExpenseFilterView(isIncome: true)),
+                                   label: { ExpenseModelView(isIncome: true, filter: filter) })
+                    NavigationLink(destination: NavigationLazyView(ExpenseFilterView(isIncome: false)),
+                                   label: { ExpenseModelView(isIncome: false, filter: filter) })
+                }.frame(maxWidth: .infinity)
 
                 Spacer().frame(height: 16)
 
