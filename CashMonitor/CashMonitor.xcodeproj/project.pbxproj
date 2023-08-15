@@ -45,6 +45,10 @@
 		EB07FC8A2A8925BD00D1537A /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC892A8925BD00D1537A /* AuthenticationManager.swift */; };
 		EB07FC8C2A89263500D1537A /* BiometricAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC8B2A89263500D1537A /* BiometricAuthView.swift */; };
 		EB07FC8F2A8A303500D1537A /* empty-data.json in Resources */ = {isa = PBXBuildFile; fileRef = EB07FC8E2A8A303500D1537A /* empty-data.json */; };
+		EB07FC912A8C197E00D1537A /* ExpenseSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC902A8C197E00D1537A /* ExpenseSettingsView.swift */; };
+		EB07FC942A8C19F500D1537A /* ExpenseSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC932A8C19F500D1537A /* ExpenseSettingsViewModel.swift */; };
+		EB07FC962A8C1A3600D1537A /* ExpenseCSVModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC952A8C1A3600D1537A /* ExpenseCSVModel.swift */; };
+		EB07FC982A8C202E00D1537A /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC972A8C202E00D1537A /* AboutView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +102,10 @@
 		EB07FC892A8925BD00D1537A /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		EB07FC8B2A89263500D1537A /* BiometricAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuthView.swift; sourceTree = "<group>"; };
 		EB07FC8E2A8A303500D1537A /* empty-data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "empty-data.json"; sourceTree = "<group>"; };
+		EB07FC902A8C197E00D1537A /* ExpenseSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseSettingsView.swift; sourceTree = "<group>"; };
+		EB07FC932A8C19F500D1537A /* ExpenseSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseSettingsViewModel.swift; sourceTree = "<group>"; };
+		EB07FC952A8C1A3600D1537A /* ExpenseCSVModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCSVModel.swift; sourceTree = "<group>"; };
+		EB07FC972A8C202E00D1537A /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +173,8 @@
 				EB07FC222A87F84400D1537A /* Persistence.swift */,
 				EB07FC1F2A87F84400D1537A /* Preview Content */,
 				EB07FC4E2A88E7AC00D1537A /* Config.swift */,
+				EB07FC922A8C19C700D1537A /* ExpenseSettings */,
+				EB07FC972A8C202E00D1537A /* AboutView.swift */,
 			);
 			path = CashMonitor;
 			sourceTree = "<group>";
@@ -268,6 +278,16 @@
 				EB07FC8E2A8A303500D1537A /* empty-data.json */,
 			);
 			path = LottieFiles;
+			sourceTree = "<group>";
+		};
+		EB07FC922A8C19C700D1537A /* ExpenseSettings */ = {
+			isa = PBXGroup;
+			children = (
+				EB07FC902A8C197E00D1537A /* ExpenseSettingsView.swift */,
+				EB07FC932A8C19F500D1537A /* ExpenseSettingsViewModel.swift */,
+				EB07FC952A8C1A3600D1537A /* ExpenseCSVModel.swift */,
+			);
+			path = ExpenseSettings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -410,13 +430,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB07FC232A87F84400D1537A /* Persistence.swift in Sources */,
+				EB07FC912A8C197E00D1537A /* ExpenseSettingsView.swift in Sources */,
 				EB07FC7A2A89103200D1537A /* ExpenseDetailedViewModel.swift in Sources */,
 				EB07FC512A88E83B00D1537A /* AttachmentHandler.swift in Sources */,
 				EB07FC752A88F4CF00D1537A /*  LottieView.swift in Sources */,
 				EB07FC782A890FE300D1537A /* ExpenseDetailedListView.swift in Sources */,
 				EB07FC602A88EC9800D1537A /* InterFontModifier.swift in Sources */,
 				EB07FC7D2A89134F00D1537A /* ExpenseFilterView.swift in Sources */,
+				EB07FC982A8C202E00D1537A /* AboutView.swift in Sources */,
 				EB07FC842A8914EE00D1537A /* ChartView.swift in Sources */,
+				EB07FC962A8C1A3600D1537A /* ExpenseCSVModel.swift in Sources */,
 				EB07FC542A88E9CE00D1537A /* AddExpenseViewModel.swift in Sources */,
 				EB07FC4D2A880A2B00D1537A /* DateExtension.swift in Sources */,
 				EB07FC5A2A88EC1F00D1537A /* ToolbarModelView.swift in Sources */,
@@ -430,6 +453,7 @@
 				EB07FC682A88EDC500D1537A /* ColorExtension.swift in Sources */,
 				EB07FC632A88ECF000D1537A /* AddExpenseView.swift in Sources */,
 				EB07FC262A87F84400D1537A /* CashMonitor.xcdatamodeld in Sources */,
+				EB07FC942A8C19F500D1537A /* ExpenseSettingsViewModel.swift in Sources */,
 				EB07FC572A88EB4A00D1537A /* DropdownOption.swift in Sources */,
 				EB07FC8A2A8925BD00D1537A /* AuthenticationManager.swift in Sources */,
 				EB07FC662A88ED6B00D1537A /* DismissKeyboard.swift in Sources */,
