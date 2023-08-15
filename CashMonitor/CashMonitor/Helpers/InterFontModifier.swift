@@ -33,3 +33,21 @@ struct InterFont: ViewModifier {
         content.font(Font.custom(type.rawValue, size: size))
     }
 }
+struct CapsuleButtonModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.headline)
+            .foregroundColor(.white)
+            .padding()
+            .background(
+                Capsule()
+                    .fill(Color("main_color"))
+            )
+    }
+}
+
+extension View {
+    func capsuleButtonStyle() -> some View {
+        self.modifier(CapsuleButtonModifier())
+    }
+}

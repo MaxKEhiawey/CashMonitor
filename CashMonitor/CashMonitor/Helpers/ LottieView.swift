@@ -9,40 +9,56 @@ import SwiftUI
 import Lottie
 
 enum LottieAnimType: String {
-    case empty_face = "empty-face"
+    case empty_data = "empty-data"
 }
 
 struct LottieView: UIViewRepresentable {
+    let name: String
+    let loopMode: LottieLoopMode
+    let animationSpeed: CGFloat
+    let contentMode: UIView.ContentMode
+    @Binding var play: Bool
 
-    var animType: LottieAnimType
-    let animationView = LottieAnimationView()
+    let animationView: LottieAnimationView
 
-    func makeUIView(context: UIViewRepresentableContext<LottieView>) -> UIView {
+    init(name: LottieAnimType,
+         loopMode: LottieLoopMode = .playOnce,
+         animationSpeed: CGFloat = 1,
+         contentMode: UIView.ContentMode = .scaleAspectFit,
+         play: Binding<Bool> = .constant(true)) {
+        self.name = name.rawValue
+        self.animationView = LottieAnimationView(name: name.rawValue)
+        self.loopMode = loopMode
+        self.animationSpeed = animationSpeed
+        self.contentMode = contentMode
+        self._play = play
+    }
 
-        let view = UIView()
-            //        let animation = Animation.named(animType.rawValue)
-            //        animationView.animation = animation
-        animationView.contentMode = .scaleAspectFit
-        animationView.backgroundBehavior = .pauseAndRestore
-        animationView.loopMode = .loop
-        animationView.play()
-
-        animationView.translatesAutoresizingMaskIntoConstraints = false
+    func makeUIView(context: Context) -> UIView {
+        let view = UIView(frame: .zero)
         view.addSubview(animationView)
-
-        NSLayoutConstraint.activate([
-            animationView.heightAnchor.constraint(equalTo: view.heightAnchor),
-            animationView.widthAnchor.constraint(equalTo: view.widthAnchor)
-        ])
+        animationView.contentMode = contentMode
+        animationView.translatesAutoresizingMaskIntoConstraints = false
+        animationView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        animationView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        animationView.loopMode = loopMode
+        animationView.animationSpeed = animationSpeed
 
         return view
     }
 
-    func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<LottieView>) {}
+    func updateUIView(_ uiView: UIView, context: Context) {
+        if play {
+            animationView.play { _ in
+                play = false
+            }
+        }
+    }
+
 }
 
 struct LottieView_Previews: PreviewProvider {
     static var previews: some View {
-        LottieView(animType: .empty_face)
+        LottieView(name: .empty_data, loopMode: .repeat(10))
     }
 }
