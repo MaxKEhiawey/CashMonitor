@@ -106,9 +106,9 @@ struct ExpenseMainView: View {
         ScrollView(showsIndicators: false) {
 
             if fetchRequest.wrappedValue.isEmpty {
-                LottieView(animType: .empty_face).frame(width: 300, height: 300)
+                LottieView(name: .empty_data, loopMode: .autoReverse).frame(width: 300, height: 300)
                 VStack {
-                    TextView(text: "No Transaction Yet!", type: .h6).foregroundColor(Color.text_primary_color)
+                    TextView(text: "No Input Entered Yet!", type: .h6).foregroundColor(Color.text_primary_color)
                     TextView(text: "Add a transaction and it will show up here", type: .body_1).foregroundColor(Color.text_secondary_color).padding(.top, 2)
                 }.padding(.horizontal)
             } else {

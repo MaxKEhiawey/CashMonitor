@@ -42,6 +42,9 @@
 		EB07FC7D2A89134F00D1537A /* ExpenseFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC7C2A89134F00D1537A /* ExpenseFilterView.swift */; };
 		EB07FC842A8914EE00D1537A /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC832A8914EE00D1537A /* ChartView.swift */; };
 		EB07FC872A8916EF00D1537A /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = EB07FC862A8916EF00D1537A /* DGCharts */; };
+		EB07FC8A2A8925BD00D1537A /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC892A8925BD00D1537A /* AuthenticationManager.swift */; };
+		EB07FC8C2A89263500D1537A /* BiometricAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB07FC8B2A89263500D1537A /* BiometricAuthView.swift */; };
+		EB07FC8F2A8A303500D1537A /* empty-data.json in Resources */ = {isa = PBXBuildFile; fileRef = EB07FC8E2A8A303500D1537A /* empty-data.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +95,9 @@
 		EB07FC792A89103200D1537A /* ExpenseDetailedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailedViewModel.swift; sourceTree = "<group>"; };
 		EB07FC7C2A89134F00D1537A /* ExpenseFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseFilterView.swift; sourceTree = "<group>"; };
 		EB07FC832A8914EE00D1537A /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		EB07FC892A8925BD00D1537A /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		EB07FC8B2A89263500D1537A /* BiometricAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuthView.swift; sourceTree = "<group>"; };
+		EB07FC8E2A8A303500D1537A /* empty-data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "empty-data.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +150,8 @@
 		EB07FC182A87F84300D1537A /* CashMonitor */ = {
 			isa = PBXGroup;
 			children = (
+				EB07FC8D2A8A2FA200D1537A /* LottieFiles */,
+				EB07FC882A89257600D1537A /* BiometricAuth */,
 				EB07FC7B2A89132C00D1537A /* ExpenseFilter */,
 				EB07FC762A890FBD00D1537A /* ExpenseDetails */,
 				EB07FC692A88EFEC00D1537A /* Expense */,
@@ -243,6 +251,23 @@
 				EB07FC7C2A89134F00D1537A /* ExpenseFilterView.swift */,
 			);
 			path = ExpenseFilter;
+			sourceTree = "<group>";
+		};
+		EB07FC882A89257600D1537A /* BiometricAuth */ = {
+			isa = PBXGroup;
+			children = (
+				EB07FC892A8925BD00D1537A /* AuthenticationManager.swift */,
+				EB07FC8B2A89263500D1537A /* BiometricAuthView.swift */,
+			);
+			path = BiometricAuth;
+			sourceTree = "<group>";
+		};
+		EB07FC8D2A8A2FA200D1537A /* LottieFiles */ = {
+			isa = PBXGroup;
+			children = (
+				EB07FC8E2A8A303500D1537A /* empty-data.json */,
+			);
+			path = LottieFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -358,6 +383,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB07FC212A87F84400D1537A /* Preview Assets.xcassets in Resources */,
+				EB07FC8F2A8A303500D1537A /* empty-data.json in Resources */,
 				EB07FC1E2A87F84400D1537A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -396,6 +422,7 @@
 				EB07FC5A2A88EC1F00D1537A /* ToolbarModelView.swift in Sources */,
 				EB07FC1C2A87F84300D1537A /* ContentView.swift in Sources */,
 				EB07FC4F2A88E7AC00D1537A /* Config.swift in Sources */,
+				EB07FC8C2A89263500D1537A /* BiometricAuthView.swift in Sources */,
 				EB07FC4A2A8806FC00D1537A /* CashMonitorDB.swift in Sources */,
 				EB07FC1A2A87F84300D1537A /* CashMonitorApp.swift in Sources */,
 				EB07FC6B2A88F00C00D1537A /* ExpenseView.swift in Sources */,
@@ -404,6 +431,7 @@
 				EB07FC632A88ECF000D1537A /* AddExpenseView.swift in Sources */,
 				EB07FC262A87F84400D1537A /* CashMonitor.xcdatamodeld in Sources */,
 				EB07FC572A88EB4A00D1537A /* DropdownOption.swift in Sources */,
+				EB07FC8A2A8925BD00D1537A /* AuthenticationManager.swift in Sources */,
 				EB07FC662A88ED6B00D1537A /* DismissKeyboard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -572,8 +600,9 @@
 				DEVELOPMENT_TEAM = R85N7Z4DTZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Allow the CashMonitor App to use your camera.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow the CashMonitor App to access your photo library.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Allow the CashMonitor App to use your camera to take pictures.";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Allow the CashMonitor App to use your face ID to unlock your data.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow the CashMonitor App to access your photo library to pick an image.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -603,8 +632,9 @@
 				DEVELOPMENT_TEAM = R85N7Z4DTZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Allow the CashMonitor App to use your camera.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow the CashMonitor App to access your photo library.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Allow the CashMonitor App to use your camera to take pictures.";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Allow the CashMonitor App to use your face ID to unlock your data.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow the CashMonitor App to access your photo library to pick an image.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

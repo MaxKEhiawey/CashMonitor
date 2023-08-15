@@ -10,7 +10,7 @@ import CoreData
 
 @main
 struct CashMonitorApp: App {
-    //let persistenceController = PersistenceController.shared
+    @StateObject private var authenticationManager = AuthenticationManager()
     init() {
         self.setDefaultPreferences()
     }
@@ -24,8 +24,25 @@ struct CashMonitorApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ExpenseView()
-           .environment(\.managedObjectContext, persistentContainer.viewContext)
+            if authenticationManager.isUnlocked {
+                ExpenseView()
+             .environment(\.managedObjectContext, persistentContainer.viewContext)
+            } else {
+                Button(action: {
+                    authenticationManager.authenticate()
+                }, label: {
+                    VStack(spacing: 0) {
+                        Image(systemName: "faceid")
+                            .font(.largeTitle)
+                        Text( "Click to Unlock with Face ID")
+                            .font(.title2)
+
+                    }
+                })
+                .capsuleButtonStyle()
+
+            }
+//
         }
     }
     var persistentContainer: NSPersistentContainer = {
