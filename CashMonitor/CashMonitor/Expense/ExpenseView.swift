@@ -94,9 +94,9 @@ struct ExpenseMainView: View {
 
     private func getTotalBalance() -> String {
         var value = Double(0)
-        for i in expense {
-            if i.type == TRANS_TYPE_INCOME { value += i.amount }
-            else if i.type == TRANS_TYPE_EXPENSE { value -= i.amount }
+        for item in expense {
+            if item.type == TRANS_TYPE_INCOME { value += item.amount }
+            else if item.type == TRANS_TYPE_EXPENSE { value -= item.amount }
         }
         return "\(String(format: "%.2f", value))"
     }
@@ -208,12 +208,12 @@ struct ExpenseTransView: View {
 
     var body: some View {
         HStack {
-//
-//            NavigationLink(destination: NavigationLazyView(ExpenseFilterView(categTag: expenseObj.tag)), label: {
-//                Image(getTransTagIcon(transTag: expenseObj.tag ?? ""))
-//                    .resizable().frame(width: 24, height: 24).padding(16)
-//                    .background(Color.primary_color).cornerRadius(4)
-//            })
+
+            NavigationLink(destination: NavigationLazyView(ExpenseFilterView(categTag: expenseObj.tag)), label: {
+                Image(getTransTagIcon(transTag: expenseObj.tag ?? ""))
+                    .resizable().frame(width: 24, height: 24).padding(16)
+                    .background(Color.primary_color).cornerRadius(4)
+            })
 
             VStack(alignment: .leading, spacing: 6) {
                 HStack {

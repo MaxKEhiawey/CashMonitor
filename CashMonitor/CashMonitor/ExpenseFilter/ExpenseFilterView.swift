@@ -85,7 +85,7 @@ struct ExpenseFilterChartView: View {
 
     private func getTotalValue() -> String {
         var value = Double(0)
-        for i in expense { value += i.amount }
+        for item in expense { value += item.amount }
         return "\(String(format: "%.2f", value))"
     }
 
