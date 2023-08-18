@@ -106,6 +106,7 @@
 		EB07FC932A8C19F500D1537A /* ExpenseSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseSettingsViewModel.swift; sourceTree = "<group>"; };
 		EB07FC952A8C1A3600D1537A /* ExpenseCSVModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCSVModel.swift; sourceTree = "<group>"; };
 		EB07FC972A8C202E00D1537A /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		EBECDF782A8FFEAD006BF748 /* WorkForMain.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = WorkForMain.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +139,7 @@
 		EB07FC0D2A87F84300D1537A = {
 			isa = PBXGroup;
 			children = (
+				EBECDF782A8FFEAD006BF748 /* WorkForMain.playground */,
 				EB07FC182A87F84300D1537A /* CashMonitor */,
 				EB07FC2E2A87F84400D1537A /* CashMonitorTests */,
 				EB07FC382A87F84400D1537A /* CashMonitorUITests */,
