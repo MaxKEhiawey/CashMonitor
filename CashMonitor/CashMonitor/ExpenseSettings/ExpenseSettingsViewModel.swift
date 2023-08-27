@@ -103,7 +103,12 @@ class ExpenseSettingsViewModel: ObservableObject {
         do {
             try csvText.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
             let av = UIActivityViewController(activityItems: [path!], applicationActivities: nil)
-            UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
+
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let rootViewController = windowScene.windows.first?.rootViewController {
+                rootViewController.present(av, animated: true, completion: nil)
+            }
+          //  UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
         } catch { alertMsg = "\(error)"; showAlert = true }
 
         print(path ?? "not found")

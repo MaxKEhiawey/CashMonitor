@@ -17,7 +17,12 @@ class AttachmentHandler: NSObject {
     fileprivate var currentVC: UIViewController!
 
     private override init() {
-        currentVC = UIApplication.shared.windows.first!.rootViewController
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let rootViewController = windowScene.windows.first?.rootViewController {
+                // Use rootViewController here
+            currentVC = rootViewController
+        }
+      //  currentVC = UIApplication.shared.windows.first!.rootViewController
     }
 
         // MARK: - Internal Properties

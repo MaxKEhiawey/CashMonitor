@@ -24,25 +24,13 @@ struct CashMonitorApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if authenticationManager.isUnlocked {
+            if  UserDefaults.standard.bool(forKey: UD_USE_BIOMETRIC) {
+                BiometricAuthView(authenticationManager: authenticationManager)
+                    .environment(\.managedObjectContext, persistentContainer.viewContext)
+            } else {
                 ExpenseView()
              .environment(\.managedObjectContext, persistentContainer.viewContext)
-            } else {
-                Button(action: {
-                    authenticationManager.authenticate()
-                }, label: {
-                    VStack(spacing: 0) {
-                        Image(systemName: "faceid")
-                            .font(.largeTitle)
-                        Text( "Click to Unlock with Face ID")
-                            .font(.title2)
-
-                    }
-                })
-                .capsuleButtonStyle()
-
             }
-//
         }
     }
     var persistentContainer: NSPersistentContainer = {

@@ -20,27 +20,40 @@ struct ExpenseView: View {
     @State private var showOptionsSheet = false
     @State private var displayAbout = false
     @State private var displaySettings = false
-
+    var emptyFilterContentItem: EmptyFilterContent? = nil
+    private let allEmptyItem = EmptyFilterContent(
+        title: "No Input Entered Yet!",
+        subtitle: "Add a transaction and it will show up here")
+    private let lastWeekItem = EmptyFilterContent(
+        title: "No Inputs for the past 7 days!",
+        subtitle: "Consider using another filter")
+    private let lastMonthItem = EmptyFilterContent(
+        title: "No Inputs for the past 30 days!",
+        subtitle: "Consider using another filter")
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 Color.primary_color.edgesIgnoringSafeArea(.all)
 
                 VStack {
-                    NavigationLink(destination: NavigationLazyView(ExpenseSettingsView()), isActive: $displaySettings, label: {})
-                    NavigationLink(destination: NavigationLazyView(AboutView()), isActive: $displayAbout, label: {})
+                   // NavigationLink(destination: NavigationLazyView(ExpenseSettingsView()), isActive: $displaySettings, label: {})
+                   // NavigationLink(destination: NavigationLazyView(AboutView()), isActive: $displayAbout, label: {})
                     ToolbarModelView(title: "Dashboard", hasBackButt: false, button1Icon: IMAGE_OPTION_ICON, button2Icon: IMAGE_FILTER_ICON) { self.presentationMode.wrappedValue.dismiss() }
                 button1Method: { self.showOptionsSheet = true }
                 button2Method: { self.showFilterSheet = true }
                         .actionSheet(isPresented: $showFilterSheet) {
                             ActionSheet(title: Text("Select a filter"), buttons: [
-                                .default(Text("Overall")) { filter = .all },
-                                .default(Text("Last 7 days")) { filter = .week },
+                                .default(Text("Overall")) {
+                                    filter = .all
+                                },
+                                .default(Text("Last 7 days")) {
+                                    filter = .week
+                                },
                                 .default(Text("Last 30 days")) { filter = .month },
                                 .cancel()
                             ])
                         }
-                    ExpenseMainView(filter: filter)
+                    ExpenseMainView(filter: filter, emptyFilter: updateEmptyFilter())
                         .actionSheet(isPresented: $showOptionsSheet) {
                             ActionSheet(title: Text("Select an option"), buttons: [
                                 .default(Text("About")) { self.displayAbout = true },
@@ -49,8 +62,14 @@ struct ExpenseView: View {
                             ])
                         }
                     Spacer()
-                }.edgesIgnoringSafeArea(.all)
-
+                }
+                .edgesIgnoringSafeArea(.all)
+                .navigationDestination(isPresented: $displaySettings) {
+                    NavigationLazyView(ExpenseSettingsView())
+                }
+                .navigationDestination(isPresented: $displayAbout) {
+                    NavigationLazyView(AboutView())
+                }
                 VStack {
                     Spacer()
                     HStack {
@@ -67,17 +86,28 @@ struct ExpenseView: View {
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
     }
+    func updateEmptyFilter() -> EmptyFilterContent {
+        switch filter {
+            case .all:
+                return allEmptyItem
+            case .week:
+                return lastWeekItem
+            case .month:
+                return  lastMonthItem
+        }
+    }
 }
 
 struct ExpenseMainView: View {
-
+    var emptyFilterContent: EmptyFilterContent
     var filter: CashDBFilterTime
     var fetchRequest: FetchRequest<CashDB>
     var expense: FetchedResults<CashDB> { fetchRequest.wrappedValue }
     @AppStorage(UD_EXPENSE_CURRENCY) var CURRENCY: String = ""
 
-    init(filter: CashDBFilterTime) {
+    init(filter: CashDBFilterTime, emptyFilter: EmptyFilterContent) {
         let sortDescriptor = NSSortDescriptor(key: "occuredOn", ascending: false)
+        self.emptyFilterContent = emptyFilter
         self.filter = filter
         if filter == .all {
             fetchRequest = FetchRequest<CashDB>(entity: CashDB.entity(), sortDescriptors: [sortDescriptor])
@@ -108,8 +138,8 @@ struct ExpenseMainView: View {
             if fetchRequest.wrappedValue.isEmpty {
                 LottieView(name: .empty_data, loopMode: .autoReverse).frame(width: 300, height: 300)
                 VStack {
-                    TextView(text: "No Input Entered Yet!", type: .h6).foregroundColor(Color.text_primary_color)
-                    TextView(text: "Add a transaction and it will show up here", type: .body_1).foregroundColor(Color.text_secondary_color).padding(.top, 2)
+                    TextView(text: emptyFilterContent.title, type: .h6).foregroundColor(Color.text_primary_color)
+                    TextView(text: emptyFilterContent.subtitle, type: .body_1).foregroundColor(Color.text_secondary_color).padding(.top, 2)
                 }.padding(.horizontal)
             } else {
                 VStack(spacing: 16) {
@@ -239,4 +269,9 @@ struct ExpenseView_Previews: PreviewProvider {
     static var previews: some View {
         ExpenseView()
     }
+}
+
+struct EmptyFilterContent {
+    let title: String
+    let subtitle: String
 }

@@ -39,6 +39,10 @@ class ExpenseDetailedViewModel: ObservableObject {
         \(SHARED_FROM_EXPENSO)
         """
         let av = UIActivityViewController(activityItems: [shareStr], applicationActivities: nil)
-        UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let rootViewController = windowScene.windows.first?.rootViewController {
+            rootViewController.present(av, animated: true, completion: nil)
+        }
+      //  UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
     }
 }

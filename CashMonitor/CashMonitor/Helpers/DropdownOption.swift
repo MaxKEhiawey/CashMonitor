@@ -70,29 +70,34 @@ struct DropdownButton: View {
     let cornerRadius: CGFloat
     let buttonHeight: CGFloat
     var onSelect: ((_ key: String) -> Void)?
-
+    let animation = Animation.spring()
     var body: some View {
         VStack {
-            Button(action: {
-                self.shouldShowDropdown.toggle()
-            }) {
-                HStack {
-                    Text(displayText).foregroundColor(mainColor)
-                    Spacer()
-                    Image(systemName: self.shouldShowDropdown ? "chevron.up" : "chevron.down").foregroundColor(mainColor)
+
+                Button(action: {
+                    self.shouldShowDropdown.toggle()
+                }) {
+                    HStack {
+                        Text(displayText).foregroundColor(mainColor)
+                        Spacer()
+                        Image(systemName: self.shouldShowDropdown ? "chevron.up" : "chevron.down").foregroundColor(mainColor)
+                    }
+                }
+                .padding(.horizontal)
+                .cornerRadius(cornerRadius)
+                .frame(height: self.buttonHeight)
+                .background(
+                    RoundedRectangle(cornerRadius: cornerRadius).fill(backgroundColor)
+                )
+                VStack {
+
+                    if self.shouldShowDropdown {
+                        withAnimation(.spring()) {
+                        Dropdown(options: self.options, onSelect: self.onSelect, cornerRadius: self.cornerRadius, mainColor: self.mainColor, backgroundColor: self.backgroundColor)
+                    }
                 }
             }
-            .padding(.horizontal)
-            .cornerRadius(cornerRadius)
-            .frame(height: self.buttonHeight)
-            .background(
-                RoundedRectangle(cornerRadius: cornerRadius).fill(backgroundColor)
-            )
-            VStack {
-                if self.shouldShowDropdown {
-                    Dropdown(options: self.options, onSelect: self.onSelect, cornerRadius: self.cornerRadius, mainColor: self.mainColor, backgroundColor: self.backgroundColor)
-                }
-            }
-        }.animation(.spring())
+        }
+        .animation(animation, value:  1.0) //.animation(.spring())
     }
 }
