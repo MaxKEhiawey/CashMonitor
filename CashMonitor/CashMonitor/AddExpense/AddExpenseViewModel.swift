@@ -17,15 +17,15 @@ class AddExpenseViewModel: ObservableObject {
     @Published var occuredOn = Date()
     @Published var note = ""
     @Published var typeTitle = "Income"
-    @Published var tagTitle = getTransTagTitle(transTag: TRANS_TAG_TRANSPORT)
+    @Published var tagTitle = getTransTagTitle(transTag: TRANSTAGTRANSPORT)
     @Published var showTypeDrop = false
     @Published var showTagDrop = false
 
-    @Published var selectedType = TRANS_TYPE_INCOME
-    @Published var selectedTag = TRANS_TAG_TRANSPORT
+    @Published var selectedType = TRANSTYPEINCOME
+    @Published var selectedTag = TRANSTAGTRANSPORT
 
     @Published var imageUpdated = false // When transaction edit, check if attachment is updated?
-    @Published var imageAttached: UIImage? = nil
+    @Published var imageAttached: UIImage?
 
     @Published var alertMsg = String()
     @Published var showAlert = false
@@ -37,16 +37,16 @@ class AddExpenseViewModel: ObservableObject {
         self.title = expenseObj?.title ?? ""
         if let expenseObj = expenseObj {
             self.amount = String(expenseObj.amount)
-            self.typeTitle = expenseObj.type == TRANS_TYPE_INCOME ? "Income" : "Expense"
+            self.typeTitle = expenseObj.type == TRANSTYPEINCOME ? "Income" : "Expense"
         } else {
             self.amount = ""
             self.typeTitle = "Income"
         }
         self.occuredOn = expenseObj?.occuredOn ?? Date()
         self.note = expenseObj?.note ?? ""
-        self.tagTitle = getTransTagTitle(transTag: expenseObj?.tag ?? TRANS_TAG_TRANSPORT)
-        self.selectedType = expenseObj?.type ?? TRANS_TYPE_INCOME
-        self.selectedTag = expenseObj?.tag ?? TRANS_TAG_TRANSPORT
+        self.tagTitle = getTransTagTitle(transTag: expenseObj?.tag ?? TRANSTAGTRANSPORT)
+        self.selectedType = expenseObj?.type ?? TRANSTYPEINCOME
+        self.selectedTag = expenseObj?.tag ?? TRANSTAGTRANSPORT
         if let data = expenseObj?.imageAttached {
             self.imageAttached = UIImage(data: data)
         }
@@ -58,9 +58,14 @@ class AddExpenseViewModel: ObservableObject {
     }
 
     func getButtText() -> String {
-        if selectedType == TRANS_TYPE_INCOME { return "\(expenseObj == nil ? "ADD" : "EDIT") INCOME" }
-        else if selectedType == TRANS_TYPE_EXPENSE { return "\(expenseObj == nil ? "ADD" : "EDIT") EXPENSE" }
-        else { return "\(expenseObj == nil ? "ADD" : "EDIT") TRANSACTION" }
+        if selectedType == TRANSTYPEINCOME {
+            return "\(expenseObj == nil ? "ADD" : "EDIT") INCOME"
+        } else if selectedType == TRANSTYPEEXPENSE {
+            return "\(expenseObj == nil ? "ADD" : "EDIT") EXPENSE"
+        } else {
+            return "\(expenseObj == nil ? "ADD" : "EDIT") TRANSACTION"
+
+        }
     }
 
     func attachImage() { AttachmentHandler.shared.showAttachmentActionSheet() }
@@ -68,11 +73,9 @@ class AddExpenseViewModel: ObservableObject {
     func removeImage() { imageAttached = nil }
 
     func saveTransaction(managedObjectContext: NSManagedObjectContext) {
-
         let expense: CashDB
         let titleStr = title.trimmingCharacters(in: .whitespacesAndNewlines)
         let amountStr = amount.trimmingCharacters(in: .whitespacesAndNewlines)
-
         if titleStr.isEmpty || titleStr == "" {
             alertMsg = "Enter Title"; showAlert = true
             return
@@ -93,25 +96,19 @@ class AddExpenseViewModel: ObservableObject {
             alertMsg = "Enter a smaller amount"; showAlert = true
             return
         }
-
         if expenseObj != nil {
-
             expense = expenseObj!
 
             if let image = imageAttached {
                 if imageUpdated {
-                    if let _ = expense.imageAttached {
+                   // if let _ = expense.imageAttached {
                             // Delete Previous Image from CoreData
-                    }
+                   //  }
                     expense.imageAttached = image.jpegData(compressionQuality: 1.0)
                 }
             } else {
-                if let _ = expense.imageAttached {
-                        // Delete Previous Image from CoreData
-                }
                 expense.imageAttached = nil
             }
-
         } else {
             expense = CashDB(context: managedObjectContext)
             expense.createdAt = Date()

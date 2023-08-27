@@ -13,26 +13,29 @@ struct BiometricAuthView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.primary_color.edgesIgnoringSafeArea(.all)
+                Color.primaryColor.edgesIgnoringSafeArea(.all)
 
                 VStack {
-                  //  NavigationLink(destination: NavigationLazyView(ExpenseView()), isActive: $authenticationManager.isUnlocked, label: {})
+                  //  NavigationLink(destination: NavigationLazyView(ExpenseView()),
+                // isActive: $authenticationManager.isUnlocked, label: {})
                     Spacer()
                    // Image("pie_icon").resizable().frame(width: 120.0, height: 120.0)
                     VStack(spacing: 16) {
-                        TextView(text: "\(APP_NAME) is locked", type: .body_1).foregroundColor(Color.text_primary_color).padding(.top, 20)
+                        TextView(text: "\(APPNAME) is locked", type: .body1)
+                            .foregroundColor(Color.textPrimaryColor)
+                            .padding(.top, 20)
                         Button(action: {  authenticationManager.authenticate()}, label: {
                             HStack {
                                 Spacer()
-                                TextView(text: "Unlock", type: .button).foregroundColor(Color.main_color)
+                                TextView(text: "Unlock", type: .button).foregroundColor(Color.mainColor)
                                 Spacer()
                             }
                         })
                         .frame(height: 25)
-                        .padding().background(Color.secondary_color)
+                        .padding().background(Color.secondaryColor)
                         .cornerRadius(4)
-                        .foregroundColor(Color.text_primary_color)
-                        .accentColor(Color.text_primary_color)
+                        .foregroundColor(Color.textPrimaryColor)
+                        .accentColor(Color.textPrimaryColor)
                     }.padding(.horizontal)
                     Spacer()
                 }

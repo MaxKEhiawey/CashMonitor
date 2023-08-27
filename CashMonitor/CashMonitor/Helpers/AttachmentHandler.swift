@@ -36,8 +36,14 @@ class AttachmentHandler: NSObject {
     struct Constants {
         static let camera = "Camera"
         static let phoneLibrary = "Phone Library"
-        static let alertForPhotoLibraryMessage = "App does not have access to your photos. To enable access, tap settings and turn on Photo Library Access."
-        static let alertForCameraAccessMessage = "App does not have access to your camera. To enable access, tap settings and turn on Camera."
+        static let alertForPhotoLibraryMessage = """
+        App does not have access to your photos.
+        To enable access, tap settings and turn on Photo Library Access.
+"""
+        static let alertForCameraAccessMessage = """
+        App does not have access to your camera.
+        To enable access, tap settings and turn on Camera.
+        """
         static let settingsBtnTitle = "Settings"
         static let cancelBtnTitle = "Cancel"
     }
@@ -46,19 +52,23 @@ class AttachmentHandler: NSObject {
         // This function is used to show the attachment sheet for camera, photo.
     func showAttachmentActionSheet() {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        actionSheet.addAction(UIAlertAction(title: Constants.camera, style: .default, handler: { (action) -> Void in
-            self.authorisationStatus(attachmentTypeEnum: .camera, vc: self.currentVC!)
+        actionSheet.addAction(UIAlertAction(title: Constants.camera, style: .default, handler: { (_) -> Void in
+            self.authorisationStatus(attachmentTypeEnum: .camera, viewController: self.currentVC!)
         }))
-        actionSheet.addAction(UIAlertAction(title: Constants.phoneLibrary, style: .default, handler: { (action) -> Void in
-            self.authorisationStatus(attachmentTypeEnum: .photoLibrary, vc: self.currentVC!)
+        actionSheet.addAction(UIAlertAction(title: Constants.phoneLibrary, style: .default, handler: { (_) -> Void in
+            self.authorisationStatus(attachmentTypeEnum: .photoLibrary, viewController: self.currentVC!)
         }))
         actionSheet.addAction(UIAlertAction(title: Constants.cancelBtnTitle, style: .cancel, handler: nil))
             // if iPhone
-        if UIDevice.current.userInterfaceIdiom == .phone { currentVC.present(actionSheet, animated: true, completion: nil) }
-        else {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            currentVC.present(actionSheet, animated: true, completion: nil)
+        } else {
                 // Change Rect to position Popover
             actionSheet.modalPresentationStyle = UIModalPresentationStyle.popover
-            actionSheet.popoverPresentationController?.sourceRect = CGRect(x: currentVC.view.frame.size.width / 2, y: currentVC.view.frame.size.height / 4, width: 0, height: 0)
+            actionSheet.popoverPresentationController?.sourceRect = CGRect(
+                x: currentVC.view.frame.size.width / 2,
+                y: currentVC.view.frame.size.height / 4,
+                width: 0, height: 0)
             actionSheet.popoverPresentationController?.sourceView = currentVC.view
             actionSheet.popoverPresentationController?.permittedArrowDirections = .any
             currentVC.present(actionSheet, animated: true, completion: nil)
@@ -69,59 +79,65 @@ class AttachmentHandler: NSObject {
         // This is used to check the authorisation status whether user gives access to import the image, photo library.
         // if the user gives access, then we can import the data safely
         // if not show them alert to access from settings.
-    func authorisationStatus(attachmentTypeEnum: AttachmentType, vc: UIViewController) {
-        currentVC = vc
-
+    func authorisationStatus(attachmentTypeEnum: AttachmentType, viewController: UIViewController) {
+        currentVC = viewController
         let cameraStatus = AVCaptureDevice.authorizationStatus(for: .video)
-        let photoStatus = PHPhotoLibrary.authorizationStatus()
+        // let photoStatus = PHPhotoLibrary.authorizationStatus()
 
         if attachmentTypeEnum == AttachmentType.camera {
             switch cameraStatus {
-                case .authorized:
+            case .authorized:
                     openCamera()
-                case .denied:
+            case .denied:
                     print("permission denied")
                     self.addAlertForSettings(attachmentTypeEnum)
-                case .notDetermined:
+            case .notDetermined:
                     print("Permission Not Determined")
                     AVCaptureDevice.requestAccess(for: .video) { success in
-                        if success { self.openCamera() }
-                        else {
-                            print("restriced manually")
-                            self.addAlertForSettings(attachmentTypeEnum)
-                        }
-                    }
-                case .restricted:
-                    print("permission restricted")
-                    self.addAlertForSettings(attachmentTypeEnum)
-                default: break
-            }
-        } else {
-            switch photoStatus {
-                case .authorized:
-                    if attachmentTypeEnum == AttachmentType.photoLibrary { openLibrary() }
-                case .denied:
-                    print("permission denied")
-                    self.addAlertForSettings(attachmentTypeEnum)
-                case .notDetermined:
-                    print("Permission Not Determined")
-                    PHPhotoLibrary.requestAuthorization({ (status) in
-                        if status == PHAuthorizationStatus.authorized {
-                                // photo library access given
-                            print("access given")
-                            if attachmentTypeEnum == AttachmentType.photoLibrary { self.openLibrary() }
+                        if success {
+                            self.openCamera()
                         } else {
                             print("restriced manually")
                             self.addAlertForSettings(attachmentTypeEnum)
                         }
-                    })
-                case .restricted:
+                    }
+            case .restricted:
                     print("permission restricted")
                     self.addAlertForSettings(attachmentTypeEnum)
-                default:
-                    break
+            default: break
             }
+        } else {
+            handleNoCamera(attachmentTypeEnum: attachmentTypeEnum)
         }
+    }
+
+    func handleNoCamera(attachmentTypeEnum: AttachmentType) {
+        let photoStatus = PHPhotoLibrary.authorizationStatus()
+        switch photoStatus {
+        case .authorized:
+                if attachmentTypeEnum == AttachmentType.photoLibrary { openLibrary() }
+        case .denied:
+                print("permission denied")
+                self.addAlertForSettings(attachmentTypeEnum)
+        case .notDetermined:
+                print("Permission Not Determined")
+                PHPhotoLibrary.requestAuthorization({ (status) in
+                    if status == PHAuthorizationStatus.authorized {
+                            // photo library access given
+                        print("access given")
+                        if attachmentTypeEnum == AttachmentType.photoLibrary { self.openLibrary() }
+                    } else {
+                        print("restriced manually")
+                        self.addAlertForSettings(attachmentTypeEnum)
+                    }
+                })
+        case .restricted:
+                print("permission restricted")
+                self.addAlertForSettings(attachmentTypeEnum)
+        default:
+                break
+        }
+
     }
 
         // MARK: - CAMERA PICKER
@@ -165,9 +181,12 @@ class AttachmentHandler: NSObject {
                 if attachmentTypeEnum == AttachmentType.photoLibrary {
                     alertTitle = Constants.alertForPhotoLibraryMessage
                 }
-                let cameraUnavailableAlertController = UIAlertController (title: alertTitle , message: nil, preferredStyle: .alert)
-                let settingsAction = UIAlertAction(title: Constants.settingsBtnTitle, style: .destructive) { (_) -> Void in
-                    let settingsUrl = NSURL(string:UIApplication.openSettingsURLString)
+                let cameraUnavailableAlertController = UIAlertController(title: alertTitle,
+                                                                          message: nil,
+                                                                          preferredStyle: .alert)
+                let settingsAction = UIAlertAction(title: Constants.settingsBtnTitle,
+                                                   style: .destructive) { (_) -> Void in
+                    let settingsUrl = NSURL(string: UIApplication.openSettingsURLString)
                     if let url = settingsUrl {
                         UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
                     }
@@ -175,7 +194,7 @@ class AttachmentHandler: NSObject {
                 let cancelAction = UIAlertAction(title: Constants.cancelBtnTitle, style: .default, handler: nil)
                 cameraUnavailableAlertController .addAction(cancelAction)
                 cameraUnavailableAlertController .addAction(settingsAction)
-                self.currentVC?.present(cameraUnavailableAlertController , animated: true, completion: nil)
+                self.currentVC?.present(cameraUnavailableAlertController, animated: true, completion: nil)
             }
         }
     }
@@ -189,7 +208,9 @@ extension AttachmentHandler: UIImagePickerControllerDelegate, UINavigationContro
         currentVC?.dismiss(animated: true, completion: nil)
     }
 
-    @objc internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    @objc internal func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             self.imagePickedBlock?(image)
         }

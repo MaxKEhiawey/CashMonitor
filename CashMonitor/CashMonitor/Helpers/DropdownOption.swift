@@ -27,9 +27,9 @@ struct DropdownOptionElement: View {
             if let onSelect = self.onSelect {
                 onSelect(self.key)
             }
-        }) {
+        }, label: {
             Text(self.val).foregroundColor(mainColor).frame(maxWidth: .infinity, alignment: .leading)
-        }
+        })
         .padding(.horizontal, 20)
         .padding(.vertical, 8)
     }
@@ -46,7 +46,10 @@ struct Dropdown: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             ForEach(self.options, id: \.self) { option in
-                DropdownOptionElement(val: option.val, key: option.key, mainColor: self.mainColor, onSelect: self.onSelect)
+                DropdownOptionElement(val: option.val,
+                                      key: option.key,
+                                      mainColor: self.mainColor,
+                                      onSelect: self.onSelect)
             }
         }
         .padding(.vertical, 4)
@@ -76,13 +79,14 @@ struct DropdownButton: View {
 
                 Button(action: {
                     self.shouldShowDropdown.toggle()
-                }) {
+                }, label: {
                     HStack {
                         Text(displayText).foregroundColor(mainColor)
                         Spacer()
-                        Image(systemName: self.shouldShowDropdown ? "chevron.up" : "chevron.down").foregroundColor(mainColor)
+                        Image(systemName: self.shouldShowDropdown ? "chevron.up" : "chevron.down")
+                            .foregroundColor(mainColor)
                     }
-                }
+                })
                 .padding(.horizontal)
                 .cornerRadius(cornerRadius)
                 .frame(height: self.buttonHeight)
@@ -93,11 +97,15 @@ struct DropdownButton: View {
 
                     if self.shouldShowDropdown {
                         withAnimation(.spring()) {
-                        Dropdown(options: self.options, onSelect: self.onSelect, cornerRadius: self.cornerRadius, mainColor: self.mainColor, backgroundColor: self.backgroundColor)
+                        Dropdown(options: self.options,
+                                 onSelect: self.onSelect,
+                                 cornerRadius: self.cornerRadius,
+                                 mainColor: self.mainColor,
+                                 backgroundColor: self.backgroundColor)
                     }
                 }
             }
         }
-        .animation(animation, value:  1.0) //.animation(.spring())
+        .animation(animation, value: 1.0)
     }
 }

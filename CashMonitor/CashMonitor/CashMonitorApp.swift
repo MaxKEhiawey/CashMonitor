@@ -16,15 +16,15 @@ struct CashMonitorApp: App {
     }
 
     private func setDefaultPreferences() {
-        let currency = UserDefaults.standard.string(forKey: UD_EXPENSE_CURRENCY)
+        let currency = UserDefaults.standard.string(forKey: EXPENSECURRENCY)
         if currency == nil {
-            UserDefaults.standard.set("$", forKey: UD_EXPENSE_CURRENCY)
+            UserDefaults.standard.set("$", forKey: EXPENSECURRENCY)
         }
     }
 
     var body: some Scene {
         WindowGroup {
-            if  UserDefaults.standard.bool(forKey: UD_USE_BIOMETRIC) {
+            if  UserDefaults.standard.bool(forKey: UDUSEBIOMETRIC) {
                 BiometricAuthView(authenticationManager: authenticationManager)
                     .environment(\.managedObjectContext, persistentContainer.viewContext)
             } else {
@@ -35,7 +35,7 @@ struct CashMonitorApp: App {
     }
     var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "CashMonitor")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+        container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }

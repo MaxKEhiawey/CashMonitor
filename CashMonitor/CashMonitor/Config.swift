@@ -8,69 +8,80 @@
 import Foundation
 
     // App Globals
-let APP_NAME = "CashMonitor"
-let APP_LINK = "https://github.com/"
-let SHARED_FROM_EXPENSO = """
-    Shared from \(APP_NAME) App: \(APP_LINK)
+let APPNAME = "CashMonitor"
+let APPLINK = "https://github.com/"
+let SHAREDFROM = """
+    Shared from \(APPNAME) App: \(APPLINK)
     """
 
     // IMAGE_ICON NAMES
-let IMAGE_DELETE_ICON = "delete_icon"
-let IMAGE_SHARE_ICON = "share_icon"
-let IMAGE_FILTER_ICON = "filter_icon"
-let IMAGE_OPTION_ICON = "settings_icon"
+let IMAGEDELETEICON = "delete_icon"
+let IMAGESHAREICON = "share_icon"
+let IMAGEFILTERICON = "filter_icon"
+let IMAGEOPTIONICON = "settings_icon"
 
     // User Defaults
-let UD_USE_BIOMETRIC = "useBiometric"
-let UD_EXPENSE_CURRENCY = "expenseCurrency"
+let UDUSEBIOMETRIC = "useBiometric"
+let EXPENSECURRENCY = "expenseCurrency"
 
-let CURRENCY_LIST = ["₹", "$", "€", "¥", "£", "¢", "₭"]
+let CURRENCYLIST = ["₹", "$", "€", "¥", "£", "¢", "₭"]
 
     // Transaction types
-let TRANS_TYPE_INCOME = "income"
-let TRANS_TYPE_EXPENSE = "expense"
+let TRANSTYPEINCOME = "income"
+let TRANSTYPEEXPENSE = "expense"
 
     // Transaction tags
-let TRANS_TAG_TRANSPORT = "transport"
-let TRANS_TAG_FOOD = "food"
-let TRANS_TAG_HOUSING = "housing"
-let TRANS_TAG_INSURANCE = "insurance"
-let TRANS_TAG_MEDICAL = "medical"
-let TRANS_TAG_SAVINGS = "savings"
-let TRANS_TAG_PERSONAL = "personal"
-let TRANS_TAG_ENTERTAINMENT = "entertainment"
-let TRANS_TAG_OTHERS = "others"
-let TRANS_TAG_UTILITIES = "utilities"
+let TRANSTAGTRANSPORT = "transport"
+let TRANSTAGFOOD = "food"
+let TRANSTAGHOUSING = "housing"
+let TRANSTAGINSURANCE = "insurance"
+let TRANSTAGMEDICAL = "medical"
+let TRANSTAGSAVINGS = "savings"
+let TRANSTAGPERSONAL = "personal"
+let TRANSTAGENTERTAINMENT = "entertainment"
+let TRANSTAGOTHERS = "others"
+let TRANSTAGUTILITIES = "utilities"
 
 func getTransTagIcon(transTag: String) -> String {
     switch transTag {
-        case TRANS_TAG_TRANSPORT: return "trans_type_transport"
-        case TRANS_TAG_FOOD: return "trans_type_food"
-        case TRANS_TAG_HOUSING: return "trans_type_housing"
-        case TRANS_TAG_INSURANCE: return "trans_type_insurance"
-        case TRANS_TAG_MEDICAL: return "trans_type_medical"
-        case TRANS_TAG_SAVINGS: return "trans_type_savings"
-        case TRANS_TAG_PERSONAL: return "trans_type_personal"
-        case TRANS_TAG_ENTERTAINMENT: return "trans_type_entertainment"
-        case TRANS_TAG_OTHERS: return "trans_type_others"
-        case TRANS_TAG_UTILITIES: return "trans_type_utilities"
-        default: return "trans_type_others"
+    case TRANSTAGTRANSPORT: return "trans_type_transport"
+    case TRANSTAGFOOD: return "trans_type_food"
+    case TRANSTAGHOUSING: return "trans_type_housing"
+    case TRANSTAGINSURANCE: return "trans_type_insurance"
+    case TRANSTAGMEDICAL: return "trans_type_medical"
+    default: return getTransTagIcon2(transTag: transTag)
+    }
+}
+func getTransTagIcon2(transTag: String) -> String {
+    switch transTag {
+    case TRANSTAGSAVINGS: return "trans_type_savings"
+    case TRANSTAGPERSONAL: return "trans_type_personal"
+    case TRANSTAGENTERTAINMENT: return "trans_type_entertainment"
+    case TRANSTAGOTHERS: return "trans_type_others"
+    case TRANSTAGUTILITIES: return "trans_type_utilities"
+    default: return "trans_type_others"
     }
 }
 
 func getTransTagTitle(transTag: String) -> String {
     switch transTag {
-        case TRANS_TAG_TRANSPORT: return "Transport"
-        case TRANS_TAG_FOOD: return "Food"
-        case TRANS_TAG_HOUSING: return "Housing"
-        case TRANS_TAG_INSURANCE: return "Insurance"
-        case TRANS_TAG_MEDICAL: return "Medical"
-        case TRANS_TAG_SAVINGS: return "Savings"
-        case TRANS_TAG_PERSONAL: return "Personal"
-        case TRANS_TAG_ENTERTAINMENT: return "Entertainment"
-        case TRANS_TAG_OTHERS: return "Others"
-        case TRANS_TAG_UTILITIES: return "Utilities"
-        default: return "Unknown"
+    case TRANSTAGTRANSPORT: return "Transport"
+    case TRANSTAGFOOD: return "Food"
+    case TRANSTAGHOUSING: return "Housing"
+    case TRANSTAGINSURANCE: return "Insurance"
+    case TRANSTAGMEDICAL: return "Medical"
+    default: return getTransTagTitle2(transTag: transTag)
+    }
+}
+
+func getTransTagTitle2(transTag: String) -> String {
+    switch transTag {
+    case TRANSTAGSAVINGS: return "Savings"
+    case TRANSTAGPERSONAL: return "Personal"
+    case TRANSTAGENTERTAINMENT: return "Entertainment"
+    case TRANSTAGOTHERS: return "Others"
+    case TRANSTAGUTILITIES: return "Utilities"
+    default: return "Unknown"
     }
 }
 

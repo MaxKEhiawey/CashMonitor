@@ -9,7 +9,7 @@ import SwiftUI
 import Lottie
 
 enum LottieAnimType: String {
-    case empty_data = "empty-data"
+    case emptyData = "empty-data"
 }
 
 struct LottieView: UIViewRepresentable {
@@ -59,6 +59,6 @@ struct LottieView: UIViewRepresentable {
 
 struct LottieView_Previews: PreviewProvider {
     static var previews: some View {
-        LottieView(name: .empty_data, loopMode: .repeat(10))
+        LottieView(name: .emptyData, loopMode: .repeat(10))
     }
 }

@@ -22,9 +22,9 @@ struct ToolbarModelView: View {
     var button1Icon: String?
     var button2Icon: String?
 
-    var backButtonClick: () -> ()
-    var button1Method: (() -> ())?
-    var button2Method: (() -> ())?
+    var backButtonClick: () -> Void
+    var button1Method: (() -> Void)?
+    var button2Method: (() -> Void)?
 
     var body: some View {
         ZStack {
@@ -36,17 +36,26 @@ struct ToolbarModelView: View {
                 Spacer()
                 if let button2Method = self.button2Method {
                     Button(action: { button2Method() },
-                           label: { Image(button2Icon ?? "").resizable().frame(width: 28.0, height: 28.0) }).padding(.horizontal, 8)
+                           label: { Image(button2Icon ?? "")
+                        .resizable()
+                        .frame(width: 28.0, height: 28.0) })
+                    .padding(.horizontal, 8)
                 }
                 if let button1Method = self.button1Method {
                     Button(action: { button1Method() },
-                           label: { Image(button1Icon ?? "").resizable().frame(width: 28.0, height: 28.0) }).padding(.horizontal, 8)
+                           label: { Image(button1Icon ?? "")
+                        .resizable()
+                        .frame(width: 28.0, height: 28.0) })
+                    .padding(.horizontal, 8)
                 }
             }
             HStack {
-                TextView(text: title, type: .h6).foregroundColor(Color.text_primary_color)
+                TextView(text: title, type: .h6Type).foregroundColor(Color.textPrimaryColor)
                 if !hasBackButt { Spacer() }
             }
-        }.padding(16).padding(.top, 30).padding(.horizontal, 8).background(Color.secondary_color)
+        }.padding(16)
+            .padding(.top, 30)
+            .padding(.horizontal, 8)
+            .background(Color.secondaryColor)
     }
 }

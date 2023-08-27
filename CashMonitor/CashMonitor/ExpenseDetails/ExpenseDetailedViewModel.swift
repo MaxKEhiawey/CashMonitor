@@ -30,18 +30,20 @@ class ExpenseDetailedViewModel: ObservableObject {
     func shareNote() {
         let shareStr = """
         Title: \(expenseObj.title ?? "")
-        Amount: \(UserDefaults.standard.string(forKey: UD_EXPENSE_CURRENCY) ?? "")\(expenseObj.amount)
-        Transaction type: \(expenseObj.type == TRANS_TYPE_INCOME ? "Income" : "Expense")
+        Amount: \(UserDefaults.standard.string(forKey: EXPENSECURRENCY) ?? "")\(expenseObj.amount)
+        Transaction type: \(expenseObj.type == TRANSTYPEINCOME ? "Income" : "Expense")
         Category: \(getTransTagTitle(transTag: expenseObj.tag ?? ""))
         Date: \(getDateFormatter(date: expenseObj.occuredOn, format: "EEEE, dd MMM hh:mm a"))
         Note: \(expenseObj.note ?? "")
 
-        \(SHARED_FROM_EXPENSO)
+        \(SHAREDFROM)
         """
-        let av = UIActivityViewController(activityItems: [shareStr], applicationActivities: nil)
+        let view = UIActivityViewController(
+            activityItems: [shareStr],
+            applicationActivities: nil)
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let rootViewController = windowScene.windows.first?.rootViewController {
-            rootViewController.present(av, animated: true, completion: nil)
+            rootViewController.present(view, animated: true, completion: nil)
         }
       //  UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
     }

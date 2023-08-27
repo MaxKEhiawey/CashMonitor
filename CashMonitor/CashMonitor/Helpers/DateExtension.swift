@@ -40,7 +40,8 @@ extension Date {
     }
 
     func getThisMonthEnd() -> Date? {
-        let components:NSDateComponents = Calendar.current.dateComponents([.year, .month], from: self) as NSDateComponents
+        let components: NSDateComponents = Calendar.current.dateComponents([.year, .month],
+                                                                           from: self) as NSDateComponents
         components.month += 1
         components.day = 1
         components.day -= 1
@@ -49,14 +50,16 @@ extension Date {
 
         // Last Month Start
     func getLastMonthStart() -> Date? {
-        let components:NSDateComponents = Calendar.current.dateComponents([.year, .month], from: self) as NSDateComponents
+        let components: NSDateComponents = Calendar.current.dateComponents([.year, .month],
+                                                                          from: self) as NSDateComponents
         components.month -= 1
         return Calendar.current.date(from: components as DateComponents)!
     }
 
         // Last Month End
     func getLastMonthEnd() -> Date? {
-        let components:NSDateComponents = Calendar.current.dateComponents([.year, .month], from: self) as NSDateComponents
+        let components: NSDateComponents = Calendar.current.dateComponents([.year, .month],
+                                                                          from: self) as NSDateComponents
         components.day = 1
         components.day -= 1
         return Calendar.current.date(from: components as DateComponents)!

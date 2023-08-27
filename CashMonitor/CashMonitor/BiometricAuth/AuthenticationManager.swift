@@ -18,13 +18,15 @@ class AuthenticationManager: ObservableObject {
 
             if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
                 let reason = "Unlock to access your app"
-                context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, error in
+                context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics,
+                                       localizedReason: reason) { success, _ in
                     DispatchQueue.main.async {
                         if success {
                             self.isUnlocked = true
                         } else {
                             self.authenticateWithPasscodeFallback()
                         }
+
                     }
                 }
             } else {
@@ -38,7 +40,8 @@ class AuthenticationManager: ObservableObject {
 
             if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
                 let reason = "Unlock with your passcode"
-                context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { success, error in
+                context.evaluatePolicy(.deviceOwnerAuthentication,
+                                       localizedReason: reason) { success, _ in
                     DispatchQueue.main.async {
                         if success {
                             self.isUnlocked = true
@@ -50,44 +53,38 @@ class AuthenticationManager: ObservableObject {
             }
         }
     }
-
-
 // check this🧑🏽‍💻
 struct BiometericAuthError: LocalizedError {
 
     var description: String
 
-    init(description: String){
+    init(description: String) {
         self.description = description
     }
 
-    init(error: Error){
+    init(error: Error) {
         self.description = error.localizedDescription
     }
 
-    var errorDescription: String?{
+    var errorDescription: String? {
         return description
     }
 }
 
 class BiometricAuthUtlity {
-    @Published var isUnlocked = false
-
     static let shared = BiometricAuthUtlity()
+    @Published var isUnlocked = false
+    private init() {}
 
-    private init(){}
-
-        /// Authenticate the user with device Authentication system.
-        /// If the .deviceOwnerAuthenticationWithBiometrics is not available, it will fallback to .deviceOwnerAuthentication
-        /// - Returns: future which passes `Bool` when the authentication suceeds or `BiometericAuthError` when failed to authenticate
     public func authenticate() -> Future<Bool, BiometericAuthError> {
-        Future { promise in
+        Future { _ in
 
             let context = LAContext()
             var error: NSError?
-            let reason = "Please authenticate yourself to unlock \(APP_NAME)"
+            let reason = "Please authenticate yourself to unlock \(APPNAME)"
             if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-                context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, error in
+                context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics,
+                                       localizedReason: reason) { success, _ in
                     DispatchQueue.main.async {
                         if success {
                             self.isUnlocked = true
@@ -107,7 +104,8 @@ class BiometricAuthUtlity {
 
         if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
             let reason = "Unlock with your passcode"
-            context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { success, error in
+            context.evaluatePolicy(.deviceOwnerAuthentication,
+                                   localizedReason: reason) { success, _ in
                 DispatchQueue.main.async {
                     if success {
                         self.isUnlocked = true

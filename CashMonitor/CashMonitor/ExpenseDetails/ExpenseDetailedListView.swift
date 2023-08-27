@@ -14,7 +14,7 @@ struct ExpenseDetailedView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
 
     @ObservedObject private var viewModel: ExpenseDetailedViewModel
-    @AppStorage(UD_EXPENSE_CURRENCY) var CURRENCY: String = ""
+    @AppStorage(EXPENSECURRENCY) var CURRENCY: String = ""
 
     @State private var confirmDelete = false
 
@@ -25,11 +25,13 @@ struct ExpenseDetailedView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.primary_color.edgesIgnoringSafeArea(.all)
+                Color.primaryColor.edgesIgnoringSafeArea(.all)
 
                 VStack {
 
-                    ToolbarModelView(title: "Details", button1Icon: IMAGE_DELETE_ICON, button2Icon: IMAGE_SHARE_ICON) { self.presentationMode.wrappedValue.dismiss() }
+                    ToolbarModelView(title: "Details",
+                                     button1Icon: IMAGEDELETEICON,
+                                     button2Icon: IMAGESHAREICON) { self.presentationMode.wrappedValue.dismiss() }
                 button1Method: { self.confirmDelete = true }
                 button2Method: { viewModel.shareNote() }
 
@@ -37,21 +39,32 @@ struct ExpenseDetailedView: View {
 
                         VStack(spacing: 24) {
                             ExpenseDetailedListView(title: "Title", description: viewModel.expenseObj.title ?? "")
-                            ExpenseDetailedListView(title: "Amount", description: "\(CURRENCY)\(viewModel.expenseObj.amount)")
-                            ExpenseDetailedListView(title: "Transaction type", description: viewModel.expenseObj.type == TRANS_TYPE_INCOME ? "Income" : "Expense" )
-                            ExpenseDetailedListView(title: "Tag", description: getTransTagTitle(transTag: viewModel.expenseObj.tag ?? ""))
-                            ExpenseDetailedListView(title: "When", description: getDateFormatter(date: viewModel.expenseObj.occuredOn, format: "EEEE, dd MMM hh:mm a"))
+                            ExpenseDetailedListView(title: "Amount",
+                                                    description: "\(CURRENCY)\(viewModel.expenseObj.amount)")
+                            ExpenseDetailedListView(
+                                title: "Transaction type",
+                                description: viewModel.expenseObj.type == TRANSTYPEINCOME ? "Income" : "Expense" )
+                            ExpenseDetailedListView(
+                                title: "Tag",
+                                description: getTransTagTitle(transTag: viewModel.expenseObj.tag ?? ""))
+                            ExpenseDetailedListView(
+                                title: "When",
+                                description: getDateFormatter(
+                                    date: viewModel.expenseObj.occuredOn,
+                                    format: "EEEE, dd MMM hh:mm a"))
                             if let note = viewModel.expenseObj.note, note != "" {
                                 ExpenseDetailedListView(title: "Note", description: note)
                             }
                             if let data = viewModel.expenseObj.imageAttached {
                                 VStack(spacing: 8) {
-                                    HStack { TextView(text: "Attachment", type: .caption).foregroundColor(Color.init(hex: "828282")); Spacer() }
+                                    HStack { TextView(text: "Attachment", type: .caption)
+                                        .foregroundColor(Color.init(hex: "828282"))
+                                        Spacer() }
                                     Image(uiImage: UIImage(data: data)!)
                                         .resizable()
                                         .scaledToFill()
                                         .frame(height: 250).frame(maxWidth: .infinity)
-                                        .background(Color.secondary_color)
+                                        .background(Color.secondaryColor)
                                         .cornerRadius(4)
                                 }
                             }
@@ -62,7 +75,7 @@ struct ExpenseDetailedView: View {
                     }
                     .alert(isPresented: $confirmDelete,
                            content: {
-                        Alert(title: Text(APP_NAME), message: Text("Are you sure you want to delete this transaction?"),
+                        Alert(title: Text(APPNAME), message: Text("Are you sure you want to delete this transaction?"),
                               primaryButton: .destructive(Text("Delete")) {
                             viewModel.deleteNote(managedObjectContext: managedObjectContext)
                         }, secondaryButton: Alert.Button.cancel(Text("Cancel"), action: { confirmDelete = false })
@@ -74,12 +87,17 @@ struct ExpenseDetailedView: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NavigationLink(destination: AddExpenseView(viewModel: AddExpenseViewModel(expenseObj: viewModel.expenseObj)), label: {
-                            Image("pencil_icon").resizable().frame(width: 28.0, height: 28.0)
+                        NavigationLink(destination: AddExpenseView(
+                            viewModel: AddExpenseViewModel(
+                            expenseObj: viewModel.expenseObj)),
+                                       label: {
+                            Image("pencil_icon")
+                                .resizable()
+                                .frame(width: 28.0, height: 28.0)
                             Text("Edit").modifier(InterFont(.semiBold, size: 18)).foregroundColor(.white)
                         })
                         .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 20))
-                        .background(Color.main_color).cornerRadius(25)
+                        .background(Color.mainColor).cornerRadius(25)
                     }.padding(24)
                 }
             }
@@ -99,7 +117,7 @@ struct ExpenseDetailedListView: View {
     var body: some View {
         VStack(spacing: 8) {
             HStack { TextView(text: title, type: .caption).foregroundColor(Color.init(hex: "828282")); Spacer() }
-            HStack { TextView(text: description, type: .body_1).foregroundColor(Color.text_primary_color); Spacer() }
+            HStack { TextView(text: description, type: .body1).foregroundColor(Color.textPrimaryColor); Spacer() }
         }
     }
 }

@@ -14,13 +14,16 @@ class ExpenseSettingsViewModel: ObservableObject {
 
     var csvModelArr = [ExpenseCSVModel]()
 
-    var cancellableBiometricTask: AnyCancellable? = nil
+    var cancellableBiometricTask: AnyCancellable?
 
-    @Published var currency = UserDefaults.standard.string(forKey: UD_EXPENSE_CURRENCY) ?? ""
-    @Published var enableBiometric = UserDefaults.standard.bool(forKey: UD_USE_BIOMETRIC) {
+    @Published var currency = UserDefaults.standard.string(forKey: EXPENSECURRENCY) ?? ""
+    @Published var enableBiometric = UserDefaults.standard.bool(forKey: UDUSEBIOMETRIC) {
         didSet {
-            if enableBiometric { authenticate() }
-            else { UserDefaults.standard.setValue(false, forKey: UD_USE_BIOMETRIC) }
+            if enableBiometric {
+                authenticate()
+            } else {
+                UserDefaults.standard.setValue(false, forKey: UDUSEBIOMETRIC)
+            }
         }
     }
 
@@ -30,21 +33,12 @@ class ExpenseSettingsViewModel: ObservableObject {
     init() {}
 
     func authenticate() {
-        showAlert = false
-        alertMsg = ""
-        cancellableBiometricTask = BiometricAuthUtlity.shared.authenticate()
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                    case .failure(let error):
-                        self.showAlert = true
-                        self.alertMsg = error.description
-                        self.enableBiometric = false
-                    default: return
-                }
-            }) { _ in
-                UserDefaults.standard.setValue(true, forKey: UD_USE_BIOMETRIC)
-            }
+
+      let auth = BiometricAuthUtlity.shared
+        _ = auth.authenticate()
+        if auth.isUnlocked {
+            UserDefaults.standard.setValue(true, forKey: UDUSEBIOMETRIC)
+        }
     }
 
     func getBiometricType() -> String {
@@ -52,10 +46,10 @@ class ExpenseSettingsViewModel: ObservableObject {
             let context = LAContext()
             if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
                 switch context.biometryType {
-                    case .faceID: return "Face ID"
-                    case .touchID: return "Touch ID"
-                    case .none: return "App Lock"
-                    @unknown default: return "App Lock"
+                case .faceID: return "Face ID"
+                case .touchID: return "Touch ID"
+                case .none: return "App Lock"
+                @unknown default: return "App Lock"
                 }
             }
         }
@@ -64,27 +58,31 @@ class ExpenseSettingsViewModel: ObservableObject {
 
     func saveCurrency(currency: String) {
         self.currency = currency
-        UserDefaults.standard.set(currency, forKey: UD_EXPENSE_CURRENCY)
+        UserDefaults.standard.set(currency, forKey: EXPENSECURRENCY)
     }
 
     func exportTransactions(moc: NSManagedObjectContext) {
         let request = CashDB.fetchRequest()
         var results: [CashDB]
         do {
-            results = try moc.fetch(request) as! [CashDB]
-            if results.count <= 0 { alertMsg = "No data to export"; showAlert = true }
-            else {
-                for i in results {
-                    let csvModel = ExpenseCSVModel()
-                    csvModel.title = i.title ?? ""
-                    csvModel.amount = "\(currency)\(i.amount)"
-                    csvModel.transactionType = "\(i.type == TRANS_TYPE_INCOME ? "INCOME" : "EXPENSE")"
-                    csvModel.tag = getTransTagTitle(transTag: i.tag ?? "")
-                    csvModel.occuredOn = "\(getDateFormatter(date: i.occuredOn, format: "yyyy-mm-dd hh:mm a"))"
-                    csvModel.note = i.note ?? ""
-                    csvModelArr.append(csvModel)
+            if let result = try moc.fetch(request) as? [CashDB] {
+                results = result
+                if results.count <= 0 {
+                    alertMsg = "No data to export"; showAlert = true
+
+                } else {
+                    for item in results {
+                        let csvModel = ExpenseCSVModel()
+                        csvModel.title = item.title ?? ""
+                        csvModel.amount = "\(currency)\(item.amount)"
+                        csvModel.transactionType = "\(item.type == TRANSTYPEINCOME ? "INCOME" : "EXPENSE")"
+                        csvModel.tag = getTransTagTitle(transTag: item.tag ?? "")
+                        csvModel.occuredOn = "\(getDateFormatter(date: item.occuredOn, format: "yyyy-mm-dd hh:mm a"))"
+                        csvModel.note = item.note ?? ""
+                        csvModelArr.append(csvModel)
+                    }
+                    self.generateCSV()
                 }
-                self.generateCSV()
             }
         } catch { alertMsg = "\(error)"; showAlert = true }
     }
@@ -96,17 +94,23 @@ class ExpenseSettingsViewModel: ObservableObject {
         var csvText = "Title,Amount,Type,Tag,Occured On,Note\n"
 
         for csvModel in csvModelArr {
-            let row = "\"\(csvModel.title)\",\"\(csvModel.amount)\",\"\(csvModel.transactionType)\",\"\(csvModel.tag)\",\"\(csvModel.occuredOn)\",\"\(csvModel.note)\"\n"
+            let row = "\"\(csvModel.title)\","
+            + "\"\(csvModel.amount)\","
+            + "\"\(csvModel.transactionType)\","
+            + "\"\(csvModel.tag)\","
+            + "\"\(csvModel.occuredOn)\","
+            + "\"\(csvModel.note)\"\n"
             csvText.append(row)
         }
 
         do {
             try csvText.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
-            let av = UIActivityViewController(activityItems: [path!], applicationActivities: nil)
+            let view = UIActivityViewController(activityItems: [path!],
+                                                applicationActivities: nil)
 
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                let rootViewController = windowScene.windows.first?.rootViewController {
-                rootViewController.present(av, animated: true, completion: nil)
+                rootViewController.present(view, animated: true, completion: nil)
             }
           //  UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
         } catch { alertMsg = "\(error)"; showAlert = true }
