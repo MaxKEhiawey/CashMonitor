@@ -36,29 +36,8 @@ struct AddExpenseView: View {
     ]
 
     var body: some View {
-        NavigationView {
             ZStack {
                 Color.primaryColor.edgesIgnoringSafeArea(.all)
-
-                VStack {
-
-                    Group {
-                        if viewModel.expenseObj == nil {
-                            ToolbarModelView(title: "Add Transaction") { self.presentationMode.wrappedValue.dismiss() }
-                        } else {
-                            ToolbarModelView(title: "Edit Transaction", button1Icon: IMAGEDELETEICON) {
-                                self.presentationMode.wrappedValue.dismiss()}
-                        button1Method: { self.confirmDelete = true }
-                        }
-                    }.alert(isPresented: $confirmDelete,
-                            content: {
-                        Alert(title: Text(APPNAME), message: Text("Are you sure you want to delete this transaction?"),
-                              primaryButton: .destructive(Text("Delete")) {
-                            viewModel.deleteTransaction(managedObjectContext: self.managedObjectContext)
-                        }, secondaryButton: Alert.Button.cancel(Text("Cancel"), action: { confirmDelete = false })
-                        )
-                    })
-
                     ScrollView(showsIndicators: false) {
 
                         VStack(spacing: 12) {
@@ -155,9 +134,6 @@ struct AddExpenseView: View {
                                         .cornerRadius(4)
                                 })
                             }
-
-                            Spacer().frame(height: 150)
-                            Spacer()
                         }
                         .frame(maxWidth: .infinity).padding(.horizontal, 8)
                         .alert(isPresented: $viewModel.showAlert,
@@ -165,8 +141,15 @@ struct AddExpenseView: View {
                                                 message: Text(viewModel.alertMsg),
                                                 dismissButton: .default(Text("OK"))) })
                     }
-
-                }.edgesIgnoringSafeArea(.top)
+                    .padding(.top, 8)
+                    .alert(isPresented: $confirmDelete,
+                           content: {
+                        Alert(title: Text(APPNAME), message: Text("Are you sure you want to delete this transaction?"),
+                              primaryButton: .destructive(Text("Delete")) {
+                            viewModel.deleteTransaction(managedObjectContext: self.managedObjectContext)
+                        }, secondaryButton: Alert.Button.cancel(Text("Cancel"), action: { confirmDelete = false })
+                        )
+                    })
 
                 VStack {
                     Spacer()
@@ -175,21 +158,21 @@ struct AddExpenseView: View {
                                label: {
                             HStack {
                                 Spacer()
-                                TextView(text: viewModel.getButtText(), type: .button).foregroundColor(.white)
+                                TextView(text: viewModel.getButtText(), type: .button)
+                                    .foregroundColor(.white)
                                 Spacer()
                             }
                         })
                         .padding(.vertical, 12).background(Color.mainColor).cornerRadius(8)
-                    }.padding(.bottom, 16).padding(.horizontal, 8)
+                    }
+                    .padding(.bottom, 16)
+                    .padding(.horizontal, 8)
                 }
 
             }
-            .navigationBarHidden(true)
-        }
+        .navigationBarTitle(viewModel.expenseObj == nil ? ADDTRANSACTION : EDITTRANSACTION, displayMode: .inline)
         .dismissKeyboardOnTap()
         .navigationViewStyle(StackNavigationViewStyle())
-        .navigationBarHidden(true)
-        .navigationBarBackButtonHidden(true)
         .onReceive(viewModel.$closePresenter) { close in
             if close { self.presentationMode.wrappedValue.dismiss() }
         }

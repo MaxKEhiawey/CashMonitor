@@ -84,12 +84,14 @@ class ExpenseSettingsViewModel: ObservableObject {
                     self.generateCSV()
                 }
             }
-        } catch { alertMsg = "\(error)"; showAlert = true }
+        } catch {
+            alertMsg = "\(error)"; showAlert = true
+        }
     }
 
     func generateCSV() {
 
-        let fileName = "Expense.csv"
+        let fileName = "CashMonitor.csv"
         let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
         var csvText = "Title,Amount,Type,Tag,Occured On,Note\n"
 

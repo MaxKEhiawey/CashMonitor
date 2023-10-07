@@ -17,12 +17,12 @@ struct ExpenseSettingsView: View {
     @State private var selectCurrency = false
 
     var body: some View {
-        NavigationView {
-            ZStack {
+
+            ZStack(alignment: .top) {
                 Color.primaryColor.edgesIgnoringSafeArea(.all)
 
                 VStack {
-                    ToolbarModelView(title: "Settings") { self.presentationMode.wrappedValue.dismiss() }
+                        /// ToolbarModelView(title: SETTINGS) { self.presentationMode.wrappedValue.dismiss() }
 
                     VStack {
 
@@ -33,6 +33,8 @@ struct ExpenseSettingsView: View {
                             Spacer()
                             Toggle("", isOn: $viewModel.enableBiometric)
                                 .toggleStyle(SwitchToggleStyle(tint: Color.mainColor))
+                                .onChange(of: viewModel.enableBiometric) { _ in
+                                }
                         }.padding(8)
 
                         Button(action: { selectCurrency = true }, label: {
@@ -71,17 +73,6 @@ struct ExpenseSettingsView: View {
                         .foregroundColor(Color.textPrimaryColor)
                         .accentColor(Color.textPrimaryColor)
 
-                        Spacer()
-
-                        HStack {
-                            Spacer()
-                            Button(action: { self.presentationMode.wrappedValue.dismiss() },
-                                   label: {
-                                Image("tick_icon").resizable().frame(width: 32.0, height: 32.0)
-                            })
-                            .padding()
-                            .background(Color.mainColor).cornerRadius(35)
-                        }
                     }
                     .padding(.horizontal, 8).padding(.top, 1)
                     .alert(isPresented: $viewModel.showAlert,
@@ -89,13 +80,29 @@ struct ExpenseSettingsView: View {
                         Alert(title: Text(APPNAME),
                               message: Text(viewModel.alertMsg),
                               dismissButton: .default(Text("OK")))})
-                }.edgesIgnoringSafeArea(.top)
+                }
+                VStack {
+                    Spacer()
+
+                    HStack {
+                        Spacer()
+                        Button(action: { self.presentationMode.wrappedValue.dismiss() },
+                               label: {
+                            Image("tick_icon")
+                                .resizable()
+                                .frame(width: 32.0, height: 32.0)
+                        })
+                        .padding()
+                        .background(Color.mainColor)
+                        .clipShape(Circle())
+                        .shadow(color: Color.gray.opacity(0.5), radius: 5, x: 4, y: 6)
+
+                    }
+                }.padding()
             }
-            .navigationBarHidden(true)
-        }
+        .navigationBarTitle(SETTINGS, displayMode: .inline)
         .navigationViewStyle(StackNavigationViewStyle())
-        .navigationBarHidden(true)
-        .navigationBarBackButtonHidden(true)
+
     }
 }
 

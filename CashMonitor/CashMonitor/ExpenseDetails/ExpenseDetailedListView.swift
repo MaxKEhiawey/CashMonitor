@@ -23,17 +23,11 @@ struct ExpenseDetailedView: View {
     }
 
     var body: some View {
-        NavigationView {
+
             ZStack {
                 Color.primaryColor.edgesIgnoringSafeArea(.all)
 
                 VStack {
-
-                    ToolbarModelView(title: "Details",
-                                     button1Icon: IMAGEDELETEICON,
-                                     button2Icon: IMAGESHAREICON) { self.presentationMode.wrappedValue.dismiss() }
-                button1Method: { self.confirmDelete = true }
-                button2Method: { viewModel.shareNote() }
 
                     ScrollView(showsIndicators: false) {
 
@@ -68,10 +62,8 @@ struct ExpenseDetailedView: View {
                                         .cornerRadius(4)
                                 }
                             }
-                        }.padding(16)
-
-                        Spacer().frame(height: 24)
-                        Spacer()
+                        }
+                        .padding(16)
                     }
                     .alert(isPresented: $confirmDelete,
                            content: {
@@ -81,8 +73,7 @@ struct ExpenseDetailedView: View {
                         }, secondaryButton: Alert.Button.cancel(Text("Cancel"), action: { confirmDelete = false })
                         )
                     })
-                }.edgesIgnoringSafeArea(.all)
-
+                }
                 VStack {
                     Spacer()
                     HStack {
@@ -99,18 +90,33 @@ struct ExpenseDetailedView: View {
                         .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 20))
                         .background(Color.mainColor).cornerRadius(25)
                     }.padding(24)
+                        .shadow(color: Color.gray.opacity(0.5), radius: 5, x: 4, y: 6)
                 }
             }
-            .navigationBarHidden(true)
-        }
+            .navigationBarTitle(DETAILS, displayMode: .inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    HStack {
+
+                        Button(action: {
+                            viewModel.shareNote()
+                        }, label: {
+                            Image(IMAGESHAREICON).resizable().frame(width: 34.0, height: 34.0)
+                        })
+                        Button(action: {
+                            self.confirmDelete = true
+                        }, label: {
+                            Image(IMAGEDELETEICON).resizable().frame(width: 34.0, height: 34.0)
+                        })
+                    }
+                }
+            }
         .navigationViewStyle(StackNavigationViewStyle())
-        .navigationBarHidden(true)
-        .navigationBarBackButtonHidden(true)
+
     }
 }
 
 struct ExpenseDetailedListView: View {
-
     var title: String
     var description: String
 

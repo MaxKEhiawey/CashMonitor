@@ -20,7 +20,7 @@ struct ChartView: UIViewRepresentable {
 
     func updateUIView(_ uiView: PieChartView, context: Context) {
         let dataSet = PieChartDataSet(entries: entries, label: label)
-        dataSet.valueFont = UIFont.init(name: "Inter-Bold", size: 18) ?? .systemFont(ofSize: 18, weight: .bold)
+        dataSet.valueFont = UIFont.init(name: "Inter-Bold", size: 16) ?? .systemFont(ofSize: 16, weight: .bold)
         dataSet.entryLabelFont = UIFont.init(name: "Inter-Light", size: 14)
         dataSet.colors = [UIColor(hex: "#DD222D")] +
         [UIColor(hex: "#F9AA07")] +

@@ -21,50 +21,35 @@ struct ExpenseView: View {
     @State private var displayAbout = false
     @State private var displaySettings = false
     var emptyFilterContentItem: EmptyFilterContent?
-    private let allEmptyItem = EmptyFilterContent(
-        title: "No Input Entered Yet!",
-        subtitle: "Add a transaction and it will show up here")
-    private let lastWeekItem = EmptyFilterContent(
-        title: "No Inputs for the past 7 days!",
-        subtitle: "Consider using another filter")
-    private let lastMonthItem = EmptyFilterContent(
-        title: "No Inputs for the past 30 days!",
-        subtitle: "Consider using another filter")
     var body: some View {
         NavigationStack {
             ZStack {
                 Color.primaryColor.edgesIgnoringSafeArea(.all)
-
                 VStack {
-
-                    ToolbarModelView(title: "Dashboard",
-                                     hasBackButt: false,
-                                     button1Icon: IMAGEOPTIONICON,
-                                     button2Icon: IMAGEFILTERICON) { self.presentationMode.wrappedValue.dismiss() }
-                button1Method: { self.showOptionsSheet = true }
-                button2Method: { self.showFilterSheet = true }
-                        .actionSheet(isPresented: $showFilterSheet) {
-                            ActionSheet(title: Text("Select a filter"), buttons: [
-                                .default(Text("Overall")) {
-                                    filter = .all
-                                },
-                                .default(Text("Last 7 days")) {
-                                    filter = .week
-                                },
-                                .default(Text("Last 30 days")) { filter = .month },
-                                .cancel()
-                            ])
-                        }
                     ExpenseMainView(filter: filter, emptyFilter: updateEmptyFilter())
-                        .actionSheet(isPresented: $showOptionsSheet) {
-                            ActionSheet(title: Text("Select an option"), buttons: [
-                                .default(Text("About")) { self.displayAbout = true },
-                                .default(Text("Settings")) { self.displaySettings = true },
-                                .cancel()
-                            ])
-                        }
-                    Spacer()
                 }
+                .actionSheet(isPresented: $showFilterSheet) {
+                    ActionSheet(title: Text("Select an option"), buttons: [
+                        .default(Text("About")) { self.displayAbout = true },
+                        .default(Text("Settings")) { self.displaySettings = true },
+                        .cancel()
+                    ])
+                }
+                VStack {}
+                .actionSheet(isPresented: $showOptionsSheet) {
+                                                    ActionSheet(title: Text("Select a filter"), buttons: [
+                                                        .default(Text("Overall")) {
+                                                            filter = .all
+                                                        },
+                                                        .default(Text("Last 7 days")) {
+                                                            filter = .week
+                                                        },
+                                                        .default(Text("Last 30 days")) { filter = .month },
+                                                        .default(Text("About")) { self.displayAbout = true },
+                                                        .default(Text("Settings")) { self.displaySettings = true },
+                                                        .cancel()
+                                                    ])
+                                                }
                 .edgesIgnoringSafeArea(.all)
                 .navigationDestination(isPresented: $displaySettings) {
                     NavigationLazyView(ExpenseSettingsView())
@@ -78,15 +63,38 @@ struct ExpenseView: View {
                         Spacer()
                         NavigationLink(destination: NavigationLazyView(
                             AddExpenseView(viewModel: AddExpenseViewModel())),
-                                       label: { Image("plus_icon").resizable().frame(width: 32.0, height: 32.0) })
-                        .padding().background(Color.mainColor).cornerRadius(35)
+                                       label: { Image("plus_icon")
+                            .resizable()
+                            .frame(width: 32.0, height: 32.0) })
+                        .padding()
+                        .background(Color.mainColor)
+                        .clipShape(Circle())
+                        .shadow(color: Color.gray.opacity(0.4), radius: 5, x: 4, y: 6)
+
                     }
                 }.padding()
             }
-            .navigationBarHidden(true)
+            .navigationBarTitle(DASHBOARD, displayMode: .inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    HStack {
+
+                        Button(action: {
+                            self.showFilterSheet = true
+                        }, label: {
+                            Image(IMAGEFILTERICON).resizable().frame(width: 34.0, height: 34.0)
+                        })
+                        Button(action: {
+                            self.showOptionsSheet = true
+                        }, label: {
+                            Image(IMAGEOPTIONICON).resizable().frame(width: 34.0, height: 34.0)
+                        })
+                    }
+                }
+            }
+
         }
         .navigationViewStyle(StackNavigationViewStyle())
-        .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
     }
     func updateEmptyFilter() -> EmptyFilterContent {
@@ -131,7 +139,16 @@ struct ExpenseMainView: View {
                                                 predicate: predicate)
         }
     }
-
+    private func listTitle() -> String {
+        switch filter {
+        case .all:
+                return "Overall Transactions"
+        case .month:
+                return "Last 30 Days Transactions"
+        case .week:
+                return "Last 7 Days Transactions"
+        }
+    }
     private func getTotalBalance() -> String {
         var value = Double(0)
         for item in expense {
@@ -141,7 +158,9 @@ struct ExpenseMainView: View {
                 value -= item.amount
             }
         }
-        return "\(String(format: "%.2f", value))"
+        let positiveValue = "\(CURRENCY)\(String(format: "%.2f", value))"
+        let negativeValue = "-\(CURRENCY)\(String(format: "%.2f", abs(value)))"
+        return value > 0 ?  positiveValue : negativeValue
     }
 
     var body: some View {
@@ -149,7 +168,8 @@ struct ExpenseMainView: View {
         ScrollView(showsIndicators: false) {
 
             if fetchRequest.wrappedValue.isEmpty {
-                LottieView(name: .emptyData, loopMode: .autoReverse).frame(width: 300, height: 300)
+                LottieView(name: .emptyData, loopMode: .autoReverse)
+                    .frame(width: 300, height: 300)
                 VStack {
                     TextView(text: emptyFilterContent.title, type: .h6Type)
                         .foregroundColor(Color.textPrimaryColor)
@@ -162,7 +182,7 @@ struct ExpenseMainView: View {
                     TextView(text: "TOTAL BALANCE", type: .overline)
                         .foregroundColor(Color.init(hex: "828282"))
                         .padding(.top, 30)
-                    TextView(text: "\(CURRENCY)\(getTotalBalance())", type: .h5Type)
+                    TextView(text: "\(getTotalBalance())", type: .h5Type)
                         .foregroundColor(Color.textPrimaryColor)
                         .padding(.bottom, 30)
                 }
@@ -180,7 +200,8 @@ struct ExpenseMainView: View {
                 Spacer().frame(height: 16)
 
                 HStack {
-                    TextView(text: "Recent Transaction", type: .subtitle1).foregroundColor(Color.textPrimaryColor)
+                    TextView(text: listTitle(), type: .subtitle1)
+                        .foregroundColor(Color.init(hex: "828282"))
                     Spacer()
                 }.padding(4)
 
@@ -210,6 +231,12 @@ struct ExpenseModelView: View {
         var value = Double(0)
         for item in expense { value += item.amount }
         return "\(String(format: "%.2f", value))"
+    }
+    private func getTotalExpenseValue() -> String {
+        var value = Double(0)
+        for item in expense { value += item.amount }
+        let stringValue = "\(String(format: "%.2f", value))"
+        return value > 0 ? "- \(CURRENCY)\(stringValue)" : "\(CURRENCY)\(stringValue)"
     }
 
     init(isIncome: Bool, filter: CashDBFilterTime, categTag: String? = nil) {
@@ -266,7 +293,7 @@ struct ExpenseModelView: View {
                 Spacer()
             }.padding(.horizontal, 12)
             HStack {
-                TextView(text: "\(CURRENCY)\(getTotalValue())",
+                TextView(text: isIncome ? "\(CURRENCY)\(getTotalValue())" : "\(getTotalExpenseValue())",
                          type: .h5Type, lineLimit: 1)
                     .foregroundColor(Color.textPrimaryColor)
                 Spacer()

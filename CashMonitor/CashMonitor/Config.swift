@@ -13,8 +13,14 @@ let APPLINK = "https://github.com/"
 let SHAREDFROM = """
     Shared from \(APPNAME) App: \(APPLINK)
     """
-
+// NAVIGATIONTTITLE
+let DASHBOARD = "Dashboard"
+let SETTINGS = "Settings"
+let DETAILS = "Details"
+let ADDTRANSACTION = "Add Transaction"
+let EDITTRANSACTION = "Edit Transaction"
     // IMAGE_ICON NAMES
+let IMAGEBACKARROWICON = "back_arrow"
 let IMAGEDELETEICON = "delete_icon"
 let IMAGESHAREICON = "share_icon"
 let IMAGEFILTERICON = "filter_icon"
@@ -24,7 +30,7 @@ let IMAGEOPTIONICON = "settings_icon"
 let UDUSEBIOMETRIC = "useBiometric"
 let EXPENSECURRENCY = "expenseCurrency"
 
-let CURRENCYLIST = ["₹", "$", "€", "¥", "£", "¢", "₭"]
+let CURRENCYLIST =  allCurrencySymbols().sorted() // ["₹", "$", "€", "¥", "£", "¢", "₭"]
 
     // Transaction types
 let TRANSTYPEINCOME = "income"
@@ -41,6 +47,17 @@ let TRANSTAGPERSONAL = "personal"
 let TRANSTAGENTERTAINMENT = "entertainment"
 let TRANSTAGOTHERS = "others"
 let TRANSTAGUTILITIES = "utilities"
+
+// Empty filter message
+let allEmptyItem = EmptyFilterContent(
+    title: "No Input Entered Yet!",
+    subtitle: "Add a transaction and it will show up here")
+ let lastWeekItem = EmptyFilterContent(
+    title: "No Inputs for the past 7 days!",
+    subtitle: "Consider using another filter")
+let lastMonthItem = EmptyFilterContent(
+    title: "No Inputs for the past 30 days!",
+    subtitle: "Consider using another filter")
 
 func getTransTagIcon(transTag: String) -> String {
     switch transTag {
@@ -91,3 +108,19 @@ func getDateFormatter(date: Date?, format: String = "yyyy-MM-dd") -> String {
     dateFormatter.dateFormat = format
     return dateFormatter.string(from: date)
 }
+
+func allCurrencySymbols() -> Set<String> {
+    let availableLocales = Locale.availableIdentifiers
+    var symbols = Set<String>()
+
+    for identifier in availableLocales {
+        let locale = Locale(identifier: identifier)
+
+        if let currencySymbol = locale.currencySymbol {
+            symbols.insert(currencySymbol)
+        }
+    }
+
+    return symbols
+}
+

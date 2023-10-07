@@ -11,6 +11,7 @@ import CoreData
 @main
 struct CashMonitorApp: App {
     @StateObject private var authenticationManager = AuthenticationManager()
+    @State var isActive: Bool = false
     init() {
         self.setDefaultPreferences()
     }
@@ -24,12 +25,16 @@ struct CashMonitorApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if  UserDefaults.standard.bool(forKey: UDUSEBIOMETRIC) {
-                BiometricAuthView(authenticationManager: authenticationManager)
-                    .environment(\.managedObjectContext, persistentContainer.viewContext)
+            if !isActive {
+                SplashScreenView(isActive: $isActive)
             } else {
-                ExpenseView()
-             .environment(\.managedObjectContext, persistentContainer.viewContext)
+                if  UserDefaults.standard.bool(forKey: UDUSEBIOMETRIC) {
+                    BiometricAuthView(authenticationManager: authenticationManager)
+                        .environment(\.managedObjectContext, persistentContainer.viewContext)
+                } else {
+                    ExpenseView()
+                        .environment(\.managedObjectContext, persistentContainer.viewContext)
+                }
             }
         }
     }
@@ -42,4 +47,10 @@ struct CashMonitorApp: App {
         })
         return container
     }()
+}
+struct LaunchScreenView: View {
+    var body: some View {
+        Text("CashMonitor")
+            .font(.largeTitle)
+    }
 }

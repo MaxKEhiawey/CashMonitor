@@ -20,8 +20,11 @@ struct AboutView: View {
                     ToolbarModelView(title: "About") { self.presentationMode.wrappedValue.dismiss() }
 
                     Spacer().frame(height: 80)
-
-                    Image(systemName: "chart.line.uptrend.xyaxis").resizable().frame(width: 120.0, height: 120.0)
+                    Image("logo")
+                        .resizable()
+                        .frame(width: 120.0, height: 120.0)
+                        .cornerRadius(48)
+                   // Image(systemName: "chart.line.uptrend.xyaxis").resizable().frame(width: 120.0, height: 120.0)
                     TextView(text: "\(APPNAME)", type: .h6Type)
                         .foregroundColor(Color.textPrimaryColor)
                         .padding(.top, 20)

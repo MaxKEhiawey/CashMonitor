@@ -15,7 +15,6 @@ struct ExpenseFilterView: View {
     @FetchRequest(fetchRequest: CashDB.getAllExpenseData(
         sortBy: CashDBSort.occuredOn,
         ascending: false)) var expense: FetchedResults<CashDB>
-
     @State var filter: CashDBFilterTime = .all
     @State var showingSheet = false
     var isIncome: Bool?
@@ -34,26 +33,16 @@ struct ExpenseFilterView: View {
     }
 
     var body: some View {
-        NavigationView {
             ZStack {
                 Color.primaryColor.edgesIgnoringSafeArea(.all)
                 VStack {
-                    ToolbarModelView(
-                        title: getToolbarTitle(),
-                        button1Icon: IMAGEFILTERICON) { self.presentationMode.wrappedValue.dismiss() }
-                button1Method: { self.showingSheet = true }
-                        .actionSheet(isPresented: $showingSheet) {
-                            ActionSheet(title: Text("Select a filter"), buttons: [
-                                .default(Text("Overall")) { filter = .all },
-                                .default(Text("Last 7 days")) { filter = .week },
-                                .default(Text("Last 30 days")) { filter = .month },
-                                .cancel()
-                            ])
-                        }
-
                     ScrollView(showsIndicators: false) {
                         if let isIncome = isIncome {
-                            ExpenseFilterChartView(isIncome: isIncome, filter: filter).frame(width: 350, height: 350)
+                            if expense.isEmpty {
+
+                            }
+                            ExpenseFilterChartView(isIncome: isIncome, filter: filter)
+                                .frame(width: 350, height: 350)
                             ExpenseFilterTransList(isIncome: isIncome, filter: filter)
                         }
                         if let tag = categTag {
@@ -64,22 +53,38 @@ struct ExpenseFilterView: View {
                             ExpenseFilterTransList(filter: filter, tag: tag)
                         }
                         Spacer().frame(height: 150)
-                    }.padding(.horizontal, 8).padding(.top, 0)
-
-                    Spacer()
-
-                }.edgesIgnoringSafeArea(.all)
+                    }.padding(.horizontal, 8)
+                        .padding(.top, 0)
+                }
+                .actionSheet(isPresented: $showingSheet) {
+                    ActionSheet(title: Text("Select a filter"), buttons: [
+                        .default(Text("Overall")) { filter = .all },
+                        .default(Text("Last 7 days")) { filter = .week },
+                        .default(Text("Last 30 days")) { filter = .month },
+                        .cancel()
+                    ])
+                }
             }
-            .navigationBarHidden(true)
-        }
+            .navigationBarTitle(getToolbarTitle(), displayMode: .inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    HStack {
+
+                        Button(action: {
+                            self.showingSheet = true
+                        }, label: {
+                            Image(IMAGEFILTERICON).resizable().frame(width: 34.0, height: 34.0)
+                        })
+                    }
+                }
+            }
         .navigationViewStyle(StackNavigationViewStyle())
-        .navigationBarHidden(true)
-        .navigationBarBackButtonHidden(true)
     }
 }
 
 struct ExpenseFilterChartView: View {
 
+    var filter: CashDBFilterTime
     var isIncome: Bool
     var type: String
     var fetchRequest: FetchRequest<CashDB>
@@ -109,8 +114,20 @@ struct ExpenseFilterChartView: View {
         return models
     }
 
+    func updateEmptyFilter() -> EmptyFilterContent {
+        switch filter {
+        case .all:
+            return allEmptyItem
+        case .week:
+            return lastWeekItem
+        case .month:
+            return  lastMonthItem
+        }
+    }
+
     init(isIncome: Bool, filter: CashDBFilterTime) {
         self.isIncome = isIncome
+        self.filter = filter
         self.type = isIncome ? TRANSTYPEINCOME : TRANSTYPEEXPENSE
         let sortDescriptor = NSSortDescriptor(key: "occuredOn", ascending: false)
         if filter == .all {
@@ -142,7 +159,18 @@ struct ExpenseFilterChartView: View {
 
     var body: some View {
         Group {
-            if !expense.isEmpty {
+            if expense.isEmpty {
+                LottieView(name: .emptyData, loopMode: .autoReverse)
+                    .frame(width: 300, height: 300)
+                VStack {
+                    let emptyFilterContent = updateEmptyFilter()
+                    TextView(text: emptyFilterContent.title, type: .h6Type)
+                        .foregroundColor(Color.textPrimaryColor)
+                    TextView(text: emptyFilterContent.subtitle, type: .body1)
+                        .foregroundColor(Color.textSecondaryColor)
+                        .padding(.top, 2)
+                }.padding(.horizontal)
+            } else {
                 ChartView(label: "Total \(isIncome ? "Income" : "Expense") - \(CURRENCY)\(getTotalValue())",
                           entries: ChartModel.getTransaction(transactions: getChartModel()))
             }
