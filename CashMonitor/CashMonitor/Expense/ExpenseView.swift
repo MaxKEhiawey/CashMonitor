@@ -45,8 +45,6 @@ struct ExpenseView: View {
                                                             filter = .week
                                                         },
                                                         .default(Text("Last 30 days")) { filter = .month },
-                                                        .default(Text("About")) { self.displayAbout = true },
-                                                        .default(Text("Settings")) { self.displaySettings = true },
                                                         .cancel()
                                                     ])
                                                 }
