@@ -31,11 +31,10 @@ class ExpenseSettingsViewModel: ObservableObject {
     @Published var showAlert = false
 
     init() {}
-
     func authenticate() {
 
       let auth = BiometricAuthUtlity.shared
-        _ = auth.authenticate()
+       auth.authenticate()
         if auth.isUnlocked {
             UserDefaults.standard.setValue(true, forKey: UDUSEBIOMETRIC)
         }
@@ -49,6 +48,7 @@ class ExpenseSettingsViewModel: ObservableObject {
                 case .faceID: return "Face ID"
                 case .touchID: return "Touch ID"
                 case .none: return "App Lock"
+                case .opticID: return "OPtic Lock"
                 @unknown default: return "App Lock"
                 }
             }

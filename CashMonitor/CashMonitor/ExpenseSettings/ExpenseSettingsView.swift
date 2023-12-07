@@ -34,6 +34,7 @@ struct ExpenseSettingsView: View {
                             Toggle("", isOn: $viewModel.enableBiometric)
                                 .toggleStyle(SwitchToggleStyle(tint: Color.mainColor))
                                 .onChange(of: viewModel.enableBiometric) { _ in
+
                                 }
                         }.padding(8)
 
@@ -95,7 +96,7 @@ struct ExpenseSettingsView: View {
                         .padding()
                         .background(Color.mainColor)
                         .clipShape(Circle())
-                        .shadow(color: Color.gray.opacity(0.5), radius: 5, x: 4, y: 6)
+                        .shadow(color: Color.black.opacity(0.5), radius: 8, x: 2, y: 6)
 
                     }
                 }.padding()

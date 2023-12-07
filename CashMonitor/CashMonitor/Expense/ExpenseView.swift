@@ -67,7 +67,7 @@ struct ExpenseView: View {
                         .padding()
                         .background(Color.mainColor)
                         .clipShape(Circle())
-                        .shadow(color: Color.gray.opacity(0.4), radius: 5, x: 4, y: 6)
+                        .shadow(color: Color.black.opacity(0.4), radius: 8, x: 2, y: 6)
 
                     }
                 }.padding()
@@ -245,7 +245,9 @@ struct ExpenseModelView: View {
             var predicate: NSPredicate!
             if let tag = categTag {
                 predicate = NSPredicate(format: "type == %@ AND tag == %@", type, tag)
-            } else { predicate = NSPredicate(format: "type == %@", type) }
+            } else {
+                predicate = NSPredicate(format: "type == %@", type)
+            }
             fetchRequest = FetchRequest<CashDB>(entity: CashDB.entity(),
                                                 sortDescriptors: [sortDescriptor],
                                                 predicate: predicate)

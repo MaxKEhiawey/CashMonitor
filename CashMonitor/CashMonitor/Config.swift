@@ -123,4 +123,3 @@ func allCurrencySymbols() -> Set<String> {
 
     return symbols
 }
-

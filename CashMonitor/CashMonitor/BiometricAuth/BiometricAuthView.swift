@@ -13,7 +13,8 @@ struct BiometricAuthView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.primaryColor.edgesIgnoringSafeArea(.all)
+                Color.primaryColor
+                    .edgesIgnoringSafeArea(.all)
 
                 VStack {
                   //  NavigationLink(destination: NavigationLazyView(ExpenseView()),
@@ -24,10 +25,13 @@ struct BiometricAuthView: View {
                         TextView(text: "\(APPNAME) is locked", type: .body1)
                             .foregroundColor(Color.textPrimaryColor)
                             .padding(.top, 20)
-                        Button(action: {  authenticationManager.authenticate()}, label: {
+                        Button(action: {
+                            authenticationManager.authenticate()
+                        }, label: {
                             HStack {
                                 Spacer()
-                                TextView(text: "Unlock", type: .button).foregroundColor(Color.mainColor)
+                                TextView(text: "Unlock", type: .button)
+                                    .foregroundColor(Color.mainColor)
                                 Spacer()
                             }
                         })
@@ -36,7 +40,8 @@ struct BiometricAuthView: View {
                         .cornerRadius(4)
                         .foregroundColor(Color.textPrimaryColor)
                         .accentColor(Color.textPrimaryColor)
-                    }.padding(.horizontal)
+                    }
+                    .padding(.horizontal)
                     Spacer()
                 }
                 .edgesIgnoringSafeArea(.all)

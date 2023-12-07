@@ -76,8 +76,7 @@ class BiometricAuthUtlity {
     @Published var isUnlocked = false
     private init() {}
 
-    public func authenticate() -> Future<Bool, BiometericAuthError> {
-        Future { _ in
+    public func authenticate() {
 
             let context = LAContext()
             var error: NSError?
@@ -96,8 +95,8 @@ class BiometricAuthUtlity {
             } else {
                 self.authenticateWithPasscodeFallback()
             }
-        }
     }
+
     private func authenticateWithPasscodeFallback() {
         let context = LAContext()
         var error: NSError?
