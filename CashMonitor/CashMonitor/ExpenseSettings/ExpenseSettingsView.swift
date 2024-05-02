@@ -96,7 +96,7 @@ struct ExpenseSettingsView: View {
                         .padding()
                         .background(Color.mainColor)
                         .clipShape(Circle())
-                        .shadow(color: Color.black.opacity(0.5), radius: 8, x: 2, y: 6)
+                        .shadow(color: Color.mainColor.opacity(0.4), radius: 4, x: 2, y: 2)
 
                     }
                 }.padding()

@@ -90,7 +90,7 @@ struct ExpenseDetailedView: View {
                         .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 20))
                         .background(Color.mainColor).cornerRadius(25)
                     }.padding(24)
-                        .shadow(color: Color.gray.opacity(0.5), radius: 5, x: 4, y: 6)
+                        .shadow(color: Color.mainColor.opacity(0.4), radius: 4, x: 2, y: 2)
                 }
             }
             .navigationBarTitle(DETAILS, displayMode: .inline)
