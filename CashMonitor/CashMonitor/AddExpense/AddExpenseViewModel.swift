@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import SwiftUI
 
 class AddExpenseViewModel: ObservableObject {
 
@@ -30,6 +31,7 @@ class AddExpenseViewModel: ObservableObject {
     @Published var alertMsg = String()
     @Published var showAlert = false
     @Published var closePresenter = false
+    @Published var isSnackbarVisible = false
 
     init(expenseObj: CashDB? = nil) {
 
@@ -77,23 +79,23 @@ class AddExpenseViewModel: ObservableObject {
         let titleStr = title.trimmingCharacters(in: .whitespacesAndNewlines)
         let amountStr = amount.trimmingCharacters(in: .whitespacesAndNewlines)
         if titleStr.isEmpty || titleStr == "" {
-            alertMsg = "Enter Title"; showAlert = true
+            alertMsg = "Enter title"; showValidationError()
             return
         }
         if amountStr.isEmpty || amountStr == "" {
-            alertMsg = "Enter Amount"; showAlert = true
+            alertMsg = "Enter an amount"; showValidationError()
             return
         }
         guard let amount = Double(amountStr) else {
-            alertMsg = "Enter valid number"; showAlert = true
+            alertMsg = "Enter valid number"; showValidationError()
             return
         }
         guard amount >= 0 else {
-            alertMsg = "Amount can't be negative"; showAlert = true
+            alertMsg = "Amount can't be negative"; showValidationError()
             return
         }
         guard amount <= 1000000000 else {
-            alertMsg = "Enter a smaller amount"; showAlert = true
+            alertMsg = "Enter a smaller amount"; showValidationError()
             return
         }
         if expenseObj != nil {
@@ -135,5 +137,16 @@ class AddExpenseViewModel: ObservableObject {
         do {
             try managedObjectContext.save(); closePresenter = true
         } catch { alertMsg = "\(error)"; showAlert = true }
+    }
+
+    func showValidationError() {
+        withAnimation(Animation.easeOut(duration: 1.0)) {
+                    isSnackbarVisible = true
+                }
+                if isSnackbarVisible {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        self.isSnackbarVisible = false
+                    }
+                }
     }
 }
