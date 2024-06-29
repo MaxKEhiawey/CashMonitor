@@ -30,7 +30,7 @@ struct ExpenseView: View {
                 }
                 .actionSheet(isPresented: $showFilterSheet) {
                     ActionSheet(title: Text("Select an option"), buttons: [
-                        .default(Text("About")) { self.displayAbout = true },
+                       // .default(Text("About")) { self.displayAbout = true },
                         .default(Text("Settings")) { self.displaySettings = true },
                         .cancel()
                     ])
@@ -80,12 +80,18 @@ struct ExpenseView: View {
                         Button(action: {
                             self.showFilterSheet = true
                         }, label: {
-                            Image(IMAGEFILTERICON).resizable().frame(width: 34.0, height: 34.0)
+                            Image(systemName: "gear")
+                                .resizable()
+                                .frame(width: 30.0, height: 30.0)
+                                .foregroundColor(Color.textPrimaryColor)
                         })
                         Button(action: {
                             self.showOptionsSheet = true
                         }, label: {
-                            Image(IMAGEOPTIONICON).resizable().frame(width: 34.0, height: 34.0)
+                            Image(systemName: "line.horizontal.3.decrease.circle")
+                                .resizable()
+                                .frame(width: 30.0, height: 30.0)
+                                .foregroundColor(Color.textPrimaryColor)
                         })
                     }
                 }

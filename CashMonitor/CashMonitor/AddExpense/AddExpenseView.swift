@@ -164,7 +164,7 @@ struct AddExpenseView: View {
                                 Spacer()
                             }
                         })
-                        .padding(.vertical, 12).background(Color.mainColor).cornerRadius(8)
+                        .padding(.vertical, 16).background(Color.mainColor).cornerRadius(8)
                     }
                     .padding(.bottom, 16)
                     .padding(.horizontal, 8)
