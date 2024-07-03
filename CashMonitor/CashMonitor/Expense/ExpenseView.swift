@@ -78,7 +78,7 @@ struct ExpenseView: View {
                     HStack {
 
                         Button(action: {
-                            self.showFilterSheet = true
+                            self.displaySettings = true
                         }, label: {
                             Image(systemName: "gear")
                                 .resizable()
