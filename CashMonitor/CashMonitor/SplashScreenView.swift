@@ -23,7 +23,7 @@ struct SplashScreenView: View {
                         .cornerRadius(48)
                     Text("\(APPNAME)")
                         .font(Font.custom("Baskerville-Bold", size: 26))
-                        .foregroundColor(.black.opacity(0.80))
+                        .foregroundColor(Color.textPrimaryColor)
                 }
                 .scaleEffect(size)
                 .opacity(opacity)
