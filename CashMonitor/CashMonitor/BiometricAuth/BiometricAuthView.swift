@@ -20,7 +20,9 @@ struct BiometricAuthView: View {
                   //  NavigationLink(destination: NavigationLazyView(ExpenseView()),
                 // isActive: $authenticationManager.isUnlocked, label: {})
                     Spacer()
-                   // Image("pie_icon").resizable().frame(width: 120.0, height: 120.0)
+                    Image("logo")
+                        .resizable()
+                        .frame(width: 120.0, height: 120.0)
                     VStack(spacing: 16) {
                         TextView(text: "\(APPNAME) is locked", type: .body1)
                             .foregroundColor(Color.textPrimaryColor)

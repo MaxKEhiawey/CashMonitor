@@ -26,17 +26,17 @@ struct ExpenseSettingsView: View {
 
                     VStack {
 
-                        HStack {
-                            TextView(text: "Enable \(viewModel.getBiometricType())",
-                                     type: .button)
-                            .foregroundColor(Color.textPrimaryColor)
-                            Spacer()
-                            Toggle("", isOn: $viewModel.enableBiometric)
-                                .toggleStyle(SwitchToggleStyle(tint: Color.mainColor))
-                                .onChange(of: viewModel.enableBiometric) { _ in
-
-                                }
-                        }.padding(8)
+//                        HStack {
+//                            TextView(text: "Enable \(viewModel.getBiometricType())",
+//                                     type: .button)
+//                            .foregroundColor(Color.textPrimaryColor)
+//                            Spacer()
+//                            Toggle("", isOn: $viewModel.enableBiometric)
+//                                .toggleStyle(SwitchToggleStyle(tint: Color.mainColor))
+//                                .onChange(of: viewModel.enableBiometric) { _ in
+//
+//                                }
+//                        }.padding(8)
 
                         Button(action: { selectCurrency = true }, label: {
                             HStack {
