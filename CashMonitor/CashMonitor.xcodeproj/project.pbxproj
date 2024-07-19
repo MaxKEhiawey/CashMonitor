@@ -656,9 +656,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CashMonitor/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Allow the CashMonitor App to use your camera to take pictures.";
-				INFOPLIST_KEY_NSFaceIDUsageDescription = "Allow the CashMonitor App to use your face ID to unlock your data.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow the CashMonitor App to access your photo library to pick an image.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "The Cash-Monitor app uses the camera to take pictures of your receipts and other expense-related documents. The photos are saved locally on your device to help you track and manage your cash expenses.";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "The CashMonitor app uses Face ID to securely authenticate your identity, ensuring that only you can access and manage your expense records. This provides an extra layer of security for your sensitive financial information.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "The Cash-Monitor app needs access to your photo library to allow you to attach existing pictures of receipts and expense-related documents to your records. The photos are used locally to assist you in tracking and managing your cash expenses.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -694,9 +694,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CashMonitor/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Allow the CashMonitor App to use your camera to take pictures.";
-				INFOPLIST_KEY_NSFaceIDUsageDescription = "Allow the CashMonitor App to use your face ID to unlock your data.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow the CashMonitor App to access your photo library to pick an image.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "The Cash-Monitor app uses the camera to take pictures of your receipts and other expense-related documents. The photos are saved locally on your device to help you track and manage your cash expenses.";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "The CashMonitor app uses Face ID to securely authenticate your identity, ensuring that only you can access and manage your expense records. This provides an extra layer of security for your sensitive financial information.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "The Cash-Monitor app needs access to your photo library to allow you to attach existing pictures of receipts and expense-related documents to your records. The photos are used locally to assist you in tracking and managing your cash expenses.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
