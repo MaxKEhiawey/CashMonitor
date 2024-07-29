@@ -656,6 +656,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CashMonitor/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Cash-Monitor";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_NSCameraUsageDescription = "The Cash-Monitor app uses the camera to take pictures of your receipts and other expense-related documents. The photos are saved locally on your device to help you track and manage your cash expenses.";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "The CashMonitor app uses Face ID to securely authenticate your identity, ensuring that only you can access and manage your expense records. This provides an extra layer of security for your sensitive financial information.";
@@ -695,6 +696,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CashMonitor/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Cash-Monitor";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_NSCameraUsageDescription = "The Cash-Monitor app uses the camera to take pictures of your receipts and other expense-related documents. The photos are saved locally on your device to help you track and manage your cash expenses.";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "The CashMonitor app uses Face ID to securely authenticate your identity, ensuring that only you can access and manage your expense records. This provides an extra layer of security for your sensitive financial information.";

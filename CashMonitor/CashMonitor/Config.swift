@@ -9,7 +9,7 @@ import Foundation
 
     // App Globals
 let APPNAME = "CashMonitor"
-let APPLINK = "https://github.com/"
+let APPLINK = "https://apps.apple.com/gh/app/cash-monitor/id6505027849"
 let SHAREDFROM = """
     Shared from \(APPNAME) App: \(APPLINK)
     """
