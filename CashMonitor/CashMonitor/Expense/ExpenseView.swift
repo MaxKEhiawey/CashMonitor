@@ -240,7 +240,7 @@ struct ExpenseModelView: View {
         var value = Double(0)
         for item in expense { value += item.amount }
         let stringValue = "\(String(format: "%.2f", value))"
-        return value > 0 ? "- \(CURRENCY)\(stringValue)" : "\(CURRENCY)\(stringValue)"
+        return value > 0 ? "- \(CURRENCY) \(stringValue)" : "\(CURRENCY)\(stringValue)"
     }
 
     init(isIncome: Bool, filter: CashDBFilterTime, categTag: String? = nil) {
@@ -299,8 +299,9 @@ struct ExpenseModelView: View {
                 Spacer()
             }.padding(.horizontal, 12)
             HStack {
-                TextView(text: isIncome ? "\(CURRENCY)\(getTotalValue())" : "\(getTotalExpenseValue())",
-                         type: .h5Type, lineLimit: 1)
+                let text = isIncome ? "\(CURRENCY) \(getTotalValue())" : "\(getTotalExpenseValue())"
+                TextView(text: text,
+                         type: modifyTextSizeWithCharLength(text), lineLimit: 1)
                     .foregroundColor(Color.textPrimaryColor)
                 Spacer()
             }.padding(.horizontal, 12)
@@ -308,6 +309,15 @@ struct ExpenseModelView: View {
         .padding(.bottom, 12)
         .background(Color.secondaryColor)
         .cornerRadius(4)
+    }
+
+    private func modifyTextSizeWithCharLength(_ charLength: String) -> TextViewType {
+        switch charLength.count {
+        case let count where count > 10:
+            return .subtitle1
+        default:
+            return .h5Type
+        }
     }
 }
 
@@ -318,7 +328,6 @@ struct ExpenseTransView: View {
 
     var body: some View {
         HStack {
-
             NavigationLink(destination: NavigationLazyView(ExpenseFilterView(categTag: expenseObj.tag)), label: {
                 Image(getTransTagIcon(transTag: expenseObj.tag ?? ""))
                     .resizable().frame(width: 24, height: 24).padding(16)
