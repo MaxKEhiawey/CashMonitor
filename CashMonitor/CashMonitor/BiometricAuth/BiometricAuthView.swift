@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BiometricAuthView: View {
-    @ObservedObject var authenticationManager: AuthenticationManager
+    @ObservedObject var authenticationManager: ExpenseSettingsViewModel
 
     var body: some View {
         NavigationStack {
@@ -47,15 +47,15 @@ struct BiometricAuthView: View {
                     Spacer()
                 }
                 .edgesIgnoringSafeArea(.all)
-                .onAppear(perform: authenticationManager.authenticate)
-                .navigationDestination(isPresented: $authenticationManager.isUnlocked) {
+                .navigationDestination(isPresented: $authenticationManager.enableBiometric) {
                     NavigationLazyView(ExpenseView())
                 }
             }
             .navigationBarHidden(true)
         }
         .onAppear(perform: {
-            authenticationManager.authenticate()
+            guard authenticationManager.enableBiometric else { return }
+            authenticationManager.authenticateBiometric(true)
         })
         .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarHidden(true)

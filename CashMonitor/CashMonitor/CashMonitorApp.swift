@@ -10,7 +10,7 @@ import CoreData
 
 @main
 struct CashMonitorApp: App {
-    @StateObject private var authenticationManager = AuthenticationManager()
+    @StateObject private var authenticationManager = ExpenseSettingsViewModel()
     @State var isActive: Bool = false
     @State var isBiometricAuth: Bool = UserDefaults.standard.bool(forKey: UDUSEBIOMETRIC)
     init() {
@@ -29,13 +29,18 @@ struct CashMonitorApp: App {
             if !isActive {
                 SplashScreenView(isActive: $isActive)
             } else {
-                if  isBiometricAuth {
-                    BiometricAuthView(authenticationManager: authenticationManager)
-                        .environment(\.managedObjectContext, persistentContainer.viewContext)
-                } else {
-                    ExpenseView()
-                        .environment(\.managedObjectContext, persistentContainer.viewContext)
+                VStack {
+                    if isBiometricAuth {
+                        BiometricAuthView(authenticationManager: authenticationManager)
+                            .environment(\.managedObjectContext, persistentContainer.viewContext)
+                    } else {
+                        ExpenseView()
+                            .environment(\.managedObjectContext, persistentContainer.viewContext)
+                    }
                 }
+                .onAppear(perform: {
+                    isBiometricAuth = authenticationManager.enableBiometric
+                })
             }
         }
     }

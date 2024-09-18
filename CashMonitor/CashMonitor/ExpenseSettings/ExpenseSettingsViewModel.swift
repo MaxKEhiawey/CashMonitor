@@ -15,28 +15,56 @@ class ExpenseSettingsViewModel: ObservableObject {
     var csvModelArr = [ExpenseCSVModel]()
 
     var cancellableBiometricTask: AnyCancellable?
+    private var cancellables = Set<AnyCancellable>()
+    private var isCallback = false
 
     @Published var currency = UserDefaults.standard.string(forKey: EXPENSECURRENCY) ?? ""
-    @Published var enableBiometric = UserDefaults.standard.bool(forKey: UDUSEBIOMETRIC) {
-        didSet {
-            if enableBiometric {
-                authenticate()
-            } else {
-                UserDefaults.standard.setValue(false, forKey: UDUSEBIOMETRIC)
-            }
-        }
-    }
+    @Published var enableBiometric: Bool = UserDefaults.standard.bool(forKey: UDUSEBIOMETRIC)
 
     @Published var alertMsg = String()
     @Published var showAlert = false
 
-    init() {}
-    func authenticate() {
+    init() {
+        updateDefault()
+        suscribeToBioAuth()
+    }
 
+    func updateDefault() {
+        enableBiometric = UserDefaults.standard.bool(forKey: UDUSEBIOMETRIC)
+    }
+    
+    func suscribeToBioAuth() {
+      //  guard UserDefaults.standard.bool(forKey: UDUSEBIOMETRIC) else { return }
+        $enableBiometric
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                authenticateBiometric(enableBiometric)
+            }
+            .store(in: &cancellables)
+    }
+
+    func authenticateBiometric(_ status: Bool) {
+        switch status {
+        case true:
+            authenticate()
+        case false:
+            UserDefaults.standard.setValue(false, forKey: UDUSEBIOMETRIC)
+        }
+    }
+
+    func authenticate() {
+        guard !isCallback else { return }
       let auth = BiometricAuthUtlity.shared
-       auth.authenticate()
-        if auth.isUnlocked {
-            UserDefaults.standard.setValue(true, forKey: UDUSEBIOMETRIC)
+        auth.authenticate { [self] status in
+            UserDefaults.standard.setValue(status, forKey: UDUSEBIOMETRIC)
+            if enableBiometric != status {
+                isCallback = true
+                enableBiometric = status
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.isCallback = false
+                }
+            }
         }
     }
 
