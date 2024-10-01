@@ -26,7 +26,7 @@ class ExpenseSettingsViewModel: ObservableObject {
 
     init() {
         updateDefault()
-        suscribeToBioAuth()
+       // suscribeToBioAuth()
     }
 
     func updateDefault() {
@@ -54,7 +54,7 @@ class ExpenseSettingsViewModel: ObservableObject {
     }
 
     func authenticate() {
-        guard !isCallback else { return }
+      guard !isCallback else { return }
       let auth = BiometricAuthUtlity.shared
         auth.authenticate { [self] status in
             UserDefaults.standard.setValue(status, forKey: UDUSEBIOMETRIC)
